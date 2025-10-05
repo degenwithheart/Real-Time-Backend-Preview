@@ -1,4 +1,4 @@
-export default function handler(req: { method?: string }, res: { setHeader: (key: string, value: string) => void; status: (code: number) => { end: () => void; json: (data: unknown) => void } }) {
+export default function handler(req, res) {
   // Set CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
@@ -27,7 +27,6 @@ export default function handler(req: { method?: string }, res: { setHeader: (key
         status: 'healthy',
         timestamp: new Date().toISOString(),
         version: '1.0.0',
-        uptime: process.uptime?.() || 'N/A',
         endpoints: [
           '/api/health',
           '/api/user',

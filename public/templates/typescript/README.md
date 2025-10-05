@@ -7,18 +7,6 @@ This template demonstrates how to connect to the mock API using TypeScript.
 - `GET https://real-time-backend-preview.vercel.app/api/user` - Returns random user data
 - `GET https://real-time-backend-preview.vercel.app/api/product` - Returns random product data
 
-## Prerequisites
-
-Ensure the backend is running:
-
-```bash
-cd ../../backend
-npm install
-npm start
-```
-
-Install ts-node globally: `npm install -g ts-node`
-
 ## Usage
 
 Run the examples:

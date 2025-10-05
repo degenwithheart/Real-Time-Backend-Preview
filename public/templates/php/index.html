@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>C# Demo Page</title>
+  <title>PHP Demo Page</title>
   <link rel="stylesheet" href="styles.css">
   <style>
     body {
@@ -13,13 +13,17 @@
     }
 
     header {
-      background: linear-gradient(135deg, #239120 0%, #68217a 100%);
+      background: linear-gradient(135deg, #777bb4 0%, #4f5b93 100%);
       color: white;
       padding: 1rem 2rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
       box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      position: static;
+      width: 100%;
+      top: auto;
+      left: auto;
     }
 
     .logo {
@@ -57,7 +61,7 @@
     .hero h1 {
       font-size: 3rem;
       margin-bottom: 1rem;
-      background: linear-gradient(135deg, #239120 0%, #68217a 100%);
+      background: linear-gradient(135deg, #777bb4 0%, #4f5b93 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -89,13 +93,13 @@
     }
 
     .btn-primary {
-      background: linear-gradient(135deg, #239120 0%, #68217a 100%);
+      background: linear-gradient(135deg, #777bb4 0%, #4f5b93 100%);
       color: white;
     }
 
     .btn-primary:hover {
       transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(35, 145, 32, 0.4);
+      box-shadow: 0 5px 15px rgba(119, 123, 180, 0.4);
     }
 
     .btn-secondary {
@@ -149,6 +153,10 @@
       text-align: center;
       padding: 2rem;
       margin-top: 4rem;
+      position: static;
+      width: 100%;
+      bottom: auto;
+      left: auto;
     }
 
     .demo-section {
@@ -209,7 +217,7 @@
 </head>
 <body>
   <header>
-    <div class="logo">C# Demo Page</div>
+    <div class="logo">PHP Demo Page</div>
     <nav>
       <a href="user.html">Users</a>
       <a href="product.html">Products</a>
@@ -218,24 +226,24 @@
 
   <main>
     <section class="hero">
-      <h1>Welcome to C# Demo</h1>
-      <p>Experience our mock API with .NET data generation using C#</p>
+      <h1>Welcome to PHP Demo</h1>
+      <p>Experience our mock API with server-side data generation using PHP</p>
       <div class="cta-buttons">
-        <a href="user.html" class="btn btn-primary">View Users</a>
-        <a href="product.html" class="btn btn-secondary">View Products</a>
+        <a href="user.php" class="btn btn-primary">View Users</a>
+        <a href="product.php" class="btn btn-secondary">View Products</a>
       </div>
     </section>
 
     <section class="features">
       <div class="feature-card">
-        <div class="feature-icon">🔷</div>
-        <h3>.NET Power</h3>
-        <p>Built with C# and modern .NET HTTP client libraries</p>
+        <div class="feature-icon">🐘</div>
+        <h3>PHP Power</h3>
+        <p>Built with PHP and cURL for robust HTTP requests</p>
       </div>
       <div class="feature-card">
-        <div class="feature-icon">🏗️</div>
-        <h3>Strong Typing</h3>
-        <p>Full type safety and object-oriented programming</p>
+        <div class="feature-icon">🌐</div>
+        <h3>Web Integration</h3>
+        <p>Perfect for web applications and server-side processing</p>
       </div>
       <div class="feature-card">
         <div class="feature-icon">📱</div>

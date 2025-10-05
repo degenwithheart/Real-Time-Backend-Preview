@@ -1,6 +1,4 @@
-
-
-export default async function handler(req: { method?: string; query: Record<string, string | string[]> }, res: { setHeader: (key: string, value: string) => void; status: (code: number) => { end: () => void; json: (data: unknown) => void } }) {
+export default function handler(req, res) {
   // Set CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');

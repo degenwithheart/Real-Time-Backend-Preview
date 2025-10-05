@@ -39,7 +39,7 @@ const downloads: Record<string, { demo: string; user: string; product: string; r
     readme: '/templates/go/README.html'
   },
   PHP: {
-    demo: '/templates/php/index.php',
+    demo: '/templates/php/index.html',
     user: '/templates/php/user.php',
     product: '/templates/php/product.php',
     readme: '/templates/php/README.html'
@@ -81,15 +81,24 @@ export default function DownloadsTabs() {
         ))}
       </div>
       <div className="download-content">
-        <h3>{activeLang} Templates</h3>
-        <p>Ready-made templates with integrated API for building frontend apps.</p>
-        <div className="links">
-          <a href={current.demo} target="_blank" rel="noopener noreferrer">View Demo Page</a>
-          <a href={current.user} target="_blank" rel="noopener noreferrer">View User Page</a>
-          <a href={current.product} target="_blank" rel="noopener noreferrer">View Product Page</a>
-          <a href={current.readme} target="_blank" rel="noopener noreferrer">View README</a>
+        <div className="content-main">
+          <h3>{activeLang} Templates</h3>
+          <p>Ready-made templates with integrated API for building frontend apps.</p>
+          <p className="location-info">
+            Templates are located in <code>templates/{activeLang.toLowerCase()}</code>
+          </p>
         </div>
-        <p>Templates are located in <code>templates/{activeLang.toLowerCase()}</code></p>
+        <div className="links">
+          <a href={current.demo} target="_blank" rel="noopener noreferrer">
+            🚀 Demo
+          </a>
+          <a href={`https://github.com/degenwithheart/Real-Time-Backend-Preview/tree/main/templates/${activeLang.toLowerCase()}`} target="_blank" rel="noopener noreferrer">
+            📦 Download
+          </a>
+          <a href={current.readme} target="_blank" rel="noopener noreferrer">
+            📖 README
+          </a>
+        </div>
       </div>
     </div>
   );

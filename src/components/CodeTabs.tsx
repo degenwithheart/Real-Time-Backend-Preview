@@ -83,9 +83,21 @@ export default function CodeTabs() {
           </button>
         ))}
       </div>
-      <pre className="code-block">
-        {codeSamples[activeLang]}
-      </pre>
+      <div className="code-container">
+        <div className="code-header">
+          <span className="code-title">{activeLang} Example</span>
+          <button 
+            className="copy-button"
+            onClick={() => navigator.clipboard.writeText(codeSamples[activeLang])}
+            title="Copy to clipboard"
+          >
+            📋
+          </button>
+        </div>
+        <pre className="code-block">
+          {codeSamples[activeLang]}
+        </pre>
+      </div>
     </div>
   );
 }
