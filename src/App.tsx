@@ -4,18 +4,68 @@ import './App.css';
 import CodeTabs from './components/CodeTabs';
 import DownloadsTabs from './components/DownloadsTabs';
 
+interface UserData {
+  id: number;
+  name: string;
+  email: string;
+  address: string;
+  company: string;
+  avatar: string;
+  phone: string;
+  createdAt: string;
+}
+
+interface ProductData {
+  id: number;
+  name: string;
+  price: number;
+  description: string;
+  category: string;
+  image: string;
+  inStock: boolean;
+  rating: string;
+  createdAt: string;
+}
+
+interface ApiResponse<T = UserData | ProductData> {
+  success: boolean;
+  message: string;
+  data: T;
+  timestamp: string;
+}
+
 function App() {
   const [activeTab, setActiveTab] = useState('demo');
-  const [data, setData] = useState<any>(null);
+  const [data, setData] = useState<ApiResponse | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
 
   const fetchUser = async () => {
-    const res = await axios.get('/api/user');
-    setData(res.data);
+    setLoading(true);
+    setError(null);
+    try {
+      const res = await axios.get('/api/user');
+      setData(res.data);
+    } catch (err) {
+      setError('Failed to fetch user data. Please try again.');
+      console.error('User fetch error:', err);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const fetchProduct = async () => {
-    const res = await axios.get('/api/product');
-    setData(res.data);
+    setLoading(true);
+    setError(null);
+    try {
+      const res = await axios.get('/api/product');
+      setData(res.data);
+    } catch (err) {
+      setError('Failed to fetch product data. Please try again.');
+      console.error('Product fetch error:', err);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -30,9 +80,18 @@ function App() {
         <div>
           <p>Mock API preview with Faker-powered random data generation.</p>
           <div className="buttons">
-            <button onClick={fetchUser}>Get Random User</button>
-            <button onClick={fetchProduct}>Get Random Product</button>
+            <button onClick={fetchUser} disabled={loading}>
+              {loading ? 'Loading...' : 'Get Random User'}
+            </button>
+            <button onClick={fetchProduct} disabled={loading}>
+              {loading ? 'Loading...' : 'Get Random Product'}
+            </button>
           </div>
+          {error && (
+            <div className="error-message" style={{ color: 'red', margin: '1rem 0', padding: '1rem', backgroundColor: '#fee2e2', borderRadius: '4px' }}>
+              {error}
+            </div>
+          )}
           {data && (
             <pre className="data-box">{JSON.stringify(data, null, 2)}</pre>
           )}

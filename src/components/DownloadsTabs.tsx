@@ -6,61 +6,61 @@ const downloads: Record<string, { demo: string; user: string; product: string; r
     demo: '/templates/javascript/index.html',
     user: '/templates/javascript/user.html',
     product: '/templates/javascript/product.html',
-    readme: '/templates/javascript/README.md'
+    readme: '/templates/javascript/README.html'
   },
   TypeScript: {
     demo: '/templates/typescript/index.html',
     user: '/templates/typescript/user.html',
     product: '/templates/typescript/product.html',
-    readme: '/templates/typescript/README.md'
+    readme: '/templates/typescript/README.html'
   },
   Python: {
     demo: '/templates/python/index.html',
     user: '/templates/python/user.html',
     product: '/templates/python/product.html',
-    readme: '/templates/python/README.md'
+    readme: '/templates/python/README.html'
   },
   Java: {
     demo: '/templates/java/index.html',
     user: '/templates/java/user.html',
     product: '/templates/java/product.html',
-    readme: '/templates/java/README.md'
+    readme: '/templates/java/README.html'
   },
   'C#': {
     demo: '/templates/csharp/index.html',
     user: '/templates/csharp/user.html',
     product: '/templates/csharp/product.html',
-    readme: '/templates/csharp/README.md'
+    readme: '/templates/csharp/README.html'
   },
   Go: {
     demo: '/templates/go/index.html',
     user: '/templates/go/user.html',
     product: '/templates/go/product.html',
-    readme: '/templates/go/README.md'
+    readme: '/templates/go/README.html'
   },
   PHP: {
     demo: '/templates/php/index.php',
     user: '/templates/php/user.php',
     product: '/templates/php/product.php',
-    readme: '/templates/php/README.md'
+    readme: '/templates/php/README.html'
   },
   Ruby: {
     demo: '/templates/ruby/index.html',
     user: '/templates/ruby/user.html',
     product: '/templates/ruby/product.html',
-    readme: '/templates/ruby/README.md'
+    readme: '/templates/ruby/README.html'
   },
   Rust: {
     demo: '/templates/rust/index.html',
     user: '/templates/rust/user.html',
     product: '/templates/rust/product.html',
-    readme: '/templates/rust/README.md'
+    readme: '/templates/rust/README.html'
   },
   Kotlin: {
     demo: '/templates/kotlin/index.html',
     user: '/templates/kotlin/user.html',
     product: '/templates/kotlin/product.html',
-    readme: '/templates/kotlin/README.md'
+    readme: '/templates/kotlin/README.html'
   }
 };
 
