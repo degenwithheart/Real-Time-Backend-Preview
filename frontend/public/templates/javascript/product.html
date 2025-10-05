@@ -26,7 +26,7 @@
     const productInfo = document.getElementById('productInfo');
     const loading = document.getElementById('loading');
 
-    fetch('/api/product')
+    fetch('https://real-time-backend-preview.vercel.app/api/product')
       .then(response => {
         if (!response.ok) {
           throw new Error(`HTTP ${response.status}: ${response.statusText}`);

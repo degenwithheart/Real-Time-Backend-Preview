@@ -49,7 +49,7 @@
       userBtn.disabled = true;
       userBtn.textContent = 'Loading...';
 
-      fetch('/api/user')
+      fetch('https://real-time-backend-preview.vercel.app/api/user')
         .then(response => {
           if (!response.ok) {
             throw new Error(`HTTP ${response.status}: ${response.statusText}`);
@@ -72,7 +72,7 @@
       productBtn.disabled = true;
       productBtn.textContent = 'Loading...';
 
-      fetch('/api/product')
+      fetch('https://real-time-backend-preview.vercel.app/api/product')
         .then(response => {
           if (!response.ok) {
             throw new Error(`HTTP ${response.status}: ${response.statusText}`);

@@ -1,4 +1,4 @@
-export default function handler(req: any, res: any) {
+export default function handler(req: { method?: string }, res: { setHeader: (key: string, value: string) => void; status: (code: number) => { end: () => void; json: (data: unknown) => void } }) {
   // Set CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
@@ -25,11 +25,9 @@ export default function handler(req: any, res: any) {
       message: 'API is healthy',
       data: {
         status: 'healthy',
-        uptime: process.uptime(),
         timestamp: new Date().toISOString(),
-        version: process.env.npm_package_version || '1.0.0',
+        version: '1.0.0',
       },
-      timestamp: new Date().toISOString(),
     });
   } catch (error) {
     console.error('Health API Error:', error);
