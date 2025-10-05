@@ -1,4 +1,4 @@
-module.exports = (req, res) => {
+export default function handler(req, res) {
   // Set CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
@@ -27,16 +27,9 @@ module.exports = (req, res) => {
         status: 'healthy',
         timestamp: new Date().toISOString(),
         version: '1.0.0',
-<<<<<<<< HEAD:api/health.js
         endpoints: [
           '/api/health',
           '/api/user', 
-========
-        uptime: process.uptime?.() || 'N/A',
-        endpoints: [
-          '/api/health',
-          '/api/user',
->>>>>>>> 3f823ef6c15c2033b76e6a7d7b53e8d07f03ab62:api/health.ts
           '/api/product'
         ]
       },

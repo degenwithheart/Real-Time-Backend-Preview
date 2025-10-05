@@ -1,18 +1,13 @@
 {
-  "version": 2,
-  "builds": [
-    {
-      "src": "package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "dist"
-      }
+  "functions": {
+    "api/user.js": {
+      "runtime": "@vercel/node@18"
+    },
+    "api/product.js": {
+      "runtime": "@vercel/node@18" 
+    },
+    "api/health.js": {
+      "runtime": "@vercel/node@18"
     }
-  ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "/$1"
-    }
-  ]
+  }
 }
