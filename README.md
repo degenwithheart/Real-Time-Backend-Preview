@@ -568,4 +568,8 @@ This ensures robust operation across different environments and API states.
 
 ## License
 
+<<<<<<< HEAD
 MIT License
+=======
+MIT License
+>>>>>>> 2dbfbea252725018a9e320720dc1fc6fcffbd5ce
