@@ -1,13 +1,1 @@
-{
-  "functions": {
-    "api/user.js": {
-      "runtime": "@vercel/node@18"
-    },
-    "api/product.js": {
-      "runtime": "@vercel/node@18" 
-    },
-    "api/health.js": {
-      "runtime": "@vercel/node@18"
-    }
-  }
-}
+{}
