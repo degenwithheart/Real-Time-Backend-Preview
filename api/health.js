@@ -1,4 +1,4 @@
-export default function handler(req, res) {
+module.exports = (req, res) => {
   // Set CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
@@ -10,7 +10,7 @@ export default function handler(req, res) {
     return;
   }
 
-  // Only allow GET requests
+  // Only allow GET requests  
   if (req.method !== 'GET') {
     return res.status(405).json({
       success: false,
@@ -29,7 +29,7 @@ export default function handler(req, res) {
         version: '1.0.0',
         endpoints: [
           '/api/health',
-          '/api/user',
+          '/api/user', 
           '/api/product'
         ]
       },
@@ -42,4 +42,4 @@ export default function handler(req, res) {
       timestamp: new Date().toISOString(),
     });
   }
-}
+};
