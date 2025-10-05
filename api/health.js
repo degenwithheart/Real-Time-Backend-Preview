@@ -1,4 +1,4 @@
-export default function handler(req: { method?: string }, res: { setHeader: (key: string, value: string) => void; status: (code: number) => { end: () => void; json: (data: unknown) => void } }) {
+module.exports = (req, res) => {
   // Set CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
@@ -10,7 +10,7 @@ export default function handler(req: { method?: string }, res: { setHeader: (key
     return;
   }
 
-  // Only allow GET requests
+  // Only allow GET requests  
   if (req.method !== 'GET') {
     return res.status(405).json({
       success: false,
@@ -22,11 +22,16 @@ export default function handler(req: { method?: string }, res: { setHeader: (key
   try {
     res.status(200).json({
       success: true,
-      message: 'API is healthy',
+      message: 'API is healthy and running',
       data: {
         status: 'healthy',
         timestamp: new Date().toISOString(),
         version: '1.0.0',
+        endpoints: [
+          '/api/health',
+          '/api/user', 
+          '/api/product'
+        ]
       },
     });
   } catch (error) {
@@ -37,4 +42,4 @@ export default function handler(req: { method?: string }, res: { setHeader: (key
       timestamp: new Date().toISOString(),
     });
   }
-}
+};
