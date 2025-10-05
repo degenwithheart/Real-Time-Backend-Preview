@@ -1,6 +1,6 @@
 // xcacheOnTheFly.ts
 // Enhanced helper for on-the-fly caching in Edge API routes
-import cache, { cacheGet, cacheSet, cacheStats } from './xcache-edge'
+import cache, { cacheGet, cacheSet, cacheStats } from './xcache-edge.js'
 
 interface CacheOptions {
   ttl?: number; // TTL in milliseconds
