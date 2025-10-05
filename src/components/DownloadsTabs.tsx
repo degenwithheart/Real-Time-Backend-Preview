@@ -1,6 +1,38 @@
 import { useState } from 'react';
 import '../App.css';
 
+// Function to download template as ZIP
+const downloadTemplate = async (templateName: string) => {
+  try {
+    const response = await fetch(`/api/download-template?template=${templateName}`);
+    if (!response.ok) {
+      throw new Error('Failed to download template');
+    }
+    
+    const data = await response.json();
+    if (data.success && data.downloadUrl) {
+      // Download the entire repository ZIP
+      const downloadResponse = await fetch(data.downloadUrl);
+      const blob = await downloadResponse.blob();
+      
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${templateName}-template.zip`;
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+    } else {
+      throw new Error('Invalid API response');
+    }
+  } catch (error) {
+    console.error('Download failed:', error);
+    // Fallback to direct GitHub download
+    window.open(`https://github.com/degenwithheart/Real-Time-Backend-Preview/archive/refs/heads/main.zip`, '_blank');
+  }
+};
+
 const downloads: Record<string, { demo: string; user: string; product: string; readme: string }> = {
   JavaScript: {
     demo: '/templates/javascript/index.html',
@@ -92,9 +124,12 @@ export default function DownloadsTabs() {
           <a href={current.demo} target="_blank" rel="noopener noreferrer">
             🚀 Demo
           </a>
-          <a href={`https://github.com/degenwithheart/Real-Time-Backend-Preview/tree/main/templates/${activeLang.toLowerCase()}`} target="_blank" rel="noopener noreferrer">
-            📦 Download
-          </a>
+          <button 
+            onClick={() => downloadTemplate(activeLang.toLowerCase())}
+            className="download-btn"
+          >
+            📦 Download ZIP
+          </button>
           <a href={current.readme} target="_blank" rel="noopener noreferrer">
             📖 README
           </a>

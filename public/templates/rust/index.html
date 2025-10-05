@@ -3,23 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rust Demo Page</title>
+  <title>Java Demo Page</title>
   <link rel="stylesheet" href="styles.css">
   <style>
-    body {
-      margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      line-height: 1.6;
-    }
-
     header {
-      background: linear-gradient(135deg, #000000 0%, #2d2d2d 100%);
+      background: linear-gradient(135deg, #ed8b00 0%, #f89820 100%);
       color: white;
       padding: 1rem 2rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
       box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
     }
 
     .logo {
@@ -43,21 +42,31 @@
       opacity: 0.8;
     }
 
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.6;
+      padding-top: 80px;
+      padding-bottom: 80px;
+    }
+
     main {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 3rem 2rem;
+      padding: 2rem;
+      width: 100%;
     }
 
     .hero {
       text-align: center;
       margin-bottom: 4rem;
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     .hero h1 {
       font-size: 3rem;
       margin-bottom: 1rem;
-      background: linear-gradient(135deg, #000000 0%, #2d2d2d 100%);
+      background: linear-gradient(135deg, #ed8b00 0%, #f89820 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -67,6 +76,14 @@
       font-size: 1.2rem;
       color: #666;
       margin-bottom: 2rem;
+    }
+
+    .hero-subtitle {
+      font-size: 1.3rem;
+      color: #555;
+      font-weight: 500;
+      max-width: 600px;
+      margin: 0 auto 2rem auto;
     }
 
     .cta-buttons {
@@ -89,31 +106,23 @@
     }
 
     .btn-primary {
-      background: linear-gradient(135deg, #000000 0%, #2d2d2d 100%);
+      background: linear-gradient(135deg, #ed8b00 0%, #f89820 100%);
       color: white;
     }
 
     .btn-primary:hover {
       transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
-    }
-
-    .btn-secondary {
-      background: #f8f9fa;
-      color: #333;
-      border: 2px solid #e9ecef;
-    }
-
-    .btn-secondary:hover {
-      background: #e9ecef;
-      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(237, 139, 0, 0.4);
     }
 
     .features {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
       margin-bottom: 4rem;
+      max-width: 1400px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     .feature-card {
@@ -148,7 +157,11 @@
       color: white;
       text-align: center;
       padding: 2rem;
-      margin-top: 4rem;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
     }
 
     .demo-section {
@@ -156,6 +169,9 @@
       padding: 3rem 2rem;
       border-radius: 12px;
       margin: 2rem 0;
+      max-width: 1400px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     .demo-grid {
@@ -177,19 +193,11 @@
       color: #333;
     }
 
-    .demo-data {
-      font-family: monospace;
-      background: #f8f9fa;
-      padding: 1rem;
-      border-radius: 4px;
-      font-size: 0.9rem;
-      overflow-x: auto;
-    }
-
     @media (max-width: 768px) {
       header {
         flex-direction: column;
         gap: 1rem;
+        padding: 1rem;
       }
 
       nav {
@@ -204,12 +212,16 @@
         flex-direction: column;
         align-items: center;
       }
+
+      body {
+        padding-top: 120px;
+      }
     }
   </style>
 </head>
 <body>
   <header>
-    <div class="logo">Rust Demo Page</div>
+    <div class="logo">Java Demo Page</div>
     <nav>
       <a href="user.html">Users</a>
       <a href="product.html">Products</a>
@@ -218,42 +230,96 @@
 
   <main>
     <section class="hero">
-      <h1>Welcome to Rust Demo</h1>
-      <p>Experience our mock API with high-performance, memory-safe data generation using Rust</p>
+      <h1>Java Template Demo</h1>
+      <p class="hero-subtitle">Complete frontend template with integrated mock APIs for Java developers</p>
       <div class="cta-buttons">
-        <a href="user.html" class="btn btn-primary">View Users</a>
-        <a href="product.html" class="btn btn-secondary">View Products</a>
+        <a href="user.html" class="btn btn-primary">👥 Browse Users</a>
+        <a href="product.html" class="btn btn-primary">🛍️ Browse Products</a>
       </div>
     </section>
 
     <section class="features">
       <div class="feature-card">
-        <div class="feature-icon">🦀</div>
-        <h3>Rust Performance</h3>
-        <p>Built with Rust for maximum performance and memory safety</p>
+        <div class="feature-icon">☕</div>
+        <h3>Java-Inspired</h3>
+        <p>Enterprise-ready architecture following Java design patterns and conventions</p>
       </div>
       <div class="feature-card">
-        <div class="feature-icon">🔒</div>
-        <h3>Memory Safe</h3>
-        <p>Zero-cost abstractions with guaranteed memory safety</p>
+        <div class="feature-icon">🔄</div>
+        <h3>Live Mock APIs</h3>
+        <p>Real-time data generation with /api/user and /api/product endpoints</p>
       </div>
       <div class="feature-card">
         <div class="feature-icon">📱</div>
-        <h3>Responsive Design</h3>
-        <p>Works perfectly on all devices and screen sizes</p>
+        <h3>Responsive Grid</h3>
+        <p>Modern CSS Grid layout that scales from mobile to ultra-wide displays</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🏗️</div>
+        <h3>Enterprise Ready</h3>
+        <p>Scalable architecture suitable for large-scale applications</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">⚙️</div>
+        <h3>Production Ready</h3>
+        <p>Error handling, loading states, and optimized for deployment</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">�</div>
+        <h3>Spring Integration</h3>
+        <p>Perfect for Spring Boot frontends and Java-based web applications</p>
       </div>
     </section>
 
     <section class="demo-section">
-      <h2 style="text-align: center; margin-bottom: 2rem;">Live API Demo</h2>
-      <div class="demo-grid" id="demoGrid">
+      <h2 style="text-align: center; margin-bottom: 1rem;">What's Included</h2>
+      <p style="text-align: center; color: #666; margin-bottom: 3rem;">This template includes everything you need for Java-style web development</p>
+      
+      <div class="demo-grid">
         <div class="demo-card">
-          <h4>Random User</h4>
-          <div class="demo-data" id="userDemo">Loading...</div>
+          <h4>📄 Pages</h4>
+          <ul style="margin: 0; padding-left: 1.5rem; color: #666;">
+            <li>Welcome page (this page)</li>
+            <li>Users page with grid layout</li>
+            <li>Products page with cards</li>
+            <li>Responsive navigation</li>
+          </ul>
         </div>
         <div class="demo-card">
-          <h4>Random Product</h4>
-          <div class="demo-data" id="productDemo">Loading...</div>
+          <h4>🔧 APIs</h4>
+          <ul style="margin: 0; padding-left: 1.5rem; color: #666;">
+            <li>/api/user - Random user data</li>
+            <li>/api/product - Random products</li>
+            <li>/api/health - System status</li>
+            <li>CORS enabled for development</li>
+          </ul>
+        </div>
+        <div class="demo-card">
+          <h4>💡 Features</h4>
+          <ul style="margin: 0; padding-left: 1.5rem; color: #666;">
+            <li>Multiple item displays</li>
+            <li>Refresh functionality</li>
+            <li>Error handling</li>
+            <li>Loading states</li>
+          </ul>
+        </div>
+        <div class="demo-card">
+          <h4>🎯 Use Cases</h4>
+          <ul style="margin: 0; padding-left: 1.5rem; color: #666;">
+            <li>Spring Boot frontends</li>
+            <li>JSF application UIs</li>
+            <li>Enterprise web portals</li>
+            <li>Java developer portfolios</li>
+          </ul>
+        </div>
+      </div>
+
+      <div style="text-align: center; margin-top: 3rem; padding: 2rem; background: white; border-radius: 12px; border: 2px solid #e9ecef;">
+        <h3 style="color: #333; margin-bottom: 1rem;">Ready to Start Building?</h3>
+        <p style="color: #666; margin-bottom: 2rem;">Download this template and customize it for your Java projects</p>
+        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+          <a href="user.html" class="btn btn-primary" style="margin: 0;">View User Demo</a>
+          <a href="product.html" class="btn btn-primary" style="margin: 0;">View Product Demo</a>
         </div>
       </div>
     </section>
@@ -264,34 +330,13 @@
   </footer>
 
   <script>
-    // Load demo data on page load
-    async function loadDemoData() {
-      try {
-        // Load user data
-        const userResponse = await fetch('https://real-time-backend-preview.vercel.app/api/user');
-        const userData = await userResponse.json();
-        document.getElementById('userDemo').textContent = JSON.stringify({
-          name: userData.data.name,
-          email: userData.data.email,
-          company: userData.data.company
-        }, null, 2);
-
-        // Load product data
-        const productResponse = await fetch('https://real-time-backend-preview.vercel.app/api/product');
-        const productData = await productResponse.json();
-        document.getElementById('productDemo').textContent = JSON.stringify({
-          name: productData.data.name,
-          price: `$${productData.data.price}`,
-          category: productData.data.category
-        }, null, 2);
-      } catch (error) {
-        console.error('Error loading demo data:', error);
-        document.getElementById('userDemo').textContent = 'Error loading data';
-        document.getElementById('productDemo').textContent = 'Error loading data';
-      }
-    }
-
-    loadDemoData();
+    console.log('Java Template Demo - Welcome Page Loaded');
+    
+    document.querySelectorAll('nav a').forEach(link => {
+      link.addEventListener('click', function(e) {
+        console.log('Navigating to:', this.getAttribute('href'));
+      });
+    });
   </script>
 </body>
 </html>

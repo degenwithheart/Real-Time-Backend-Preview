@@ -301,6 +301,33 @@ h1 {
   box-shadow: 0 8px 24px rgba(59, 130, 246, 0.4);
 }
 
+.links .download-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.875rem 1.5rem;
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+  color: white;
+  border: none;
+  border-radius: 16px;
+  font-weight: 600;
+  font-size: 0.875rem;
+  font-family: inherit;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+  text-align: center;
+  white-space: nowrap;
+  flex-shrink: 0;
+  min-width: fit-content;
+  cursor: pointer;
+}
+
+.links .download-btn:hover {
+  background: linear-gradient(135deg, #2563eb, #1e40af);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(59, 130, 246, 0.4);
+}
+
 .code-tabs {
   margin-top: 2rem;
   width: 100%;

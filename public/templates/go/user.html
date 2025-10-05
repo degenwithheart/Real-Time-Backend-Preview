@@ -48,14 +48,16 @@
     }
 
     main {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 3rem 2rem;
+      padding: 2rem;
+      width: 100%;
     }
 
     .hero {
       text-align: center;
-      margin-bottom: 4rem;
+      margin-bottom: 3rem;
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     .hero h1 {
@@ -188,6 +190,138 @@
         gap: 0.5rem;
       }
     }
+
+    /* Responsive Users Grid */
+    .users-grid {
+      display: grid;
+      gap: 20px;
+      margin-bottom: 30px;
+      grid-template-columns: 1fr;
+    }
+
+    @media (min-width: 640px) {
+      .users-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .users-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 28px;
+      }
+    }
+
+    @media (min-width: 1280px) {
+      .users-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 32px;
+      }
+    }
+
+    @media (min-width: 1600px) {
+      .users-grid {
+        grid-template-columns: repeat(5, 1fr);
+      }
+    }
+
+    .user-card-grid {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 20px;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      transition: all 0.3s ease;
+      text-align: center;
+    }
+
+    .user-card-grid:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 25px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      border-color: #00acd7;
+    }
+
+    .user-card-grid .user-avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #00acd7 0%, #74d0f1 100%);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin: 0 auto 1rem auto;
+    }
+
+    .user-details h3 {
+      margin: 0 0 0.5rem 0;
+      color: #1f2937;
+      font-size: 1.2em;
+      font-weight: 600;
+    }
+
+    .user-email {
+      color: #00acd7;
+      font-weight: 500;
+      margin: 0.25rem 0;
+    }
+
+    .user-role {
+      background: #dbeafe;
+      color: #00acd7;
+      padding: 4px 12px;
+      border-radius: 16px;
+      font-size: 0.8em;
+      font-weight: 500;
+      display: inline-block;
+      margin: 0.5rem 0;
+    }
+
+    .user-company, .user-address {
+      color: #6b7280;
+      font-size: 0.9em;
+      margin: 0.25rem 0;
+    }
+
+    .user-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid #e5e7eb;
+      font-size: 0.8em;
+    }
+
+    .user-id {
+      color: #9ca3af;
+      font-weight: 500;
+    }
+
+    .join-date {
+      color: #6b7280;
+    }
+
+    .refresh-btn {
+      background: linear-gradient(135deg, #00acd7 0%, #74d0f1 100%);
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      display: block;
+      margin: 0 auto;
+    }
+
+    .refresh-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px -4px rgba(0, 172, 215, 0.4);
+    }
   </style>
 </head>
 <body>
@@ -221,32 +355,40 @@
   <script>
     async function loadUserData() {
       try {
-        const response = await fetch('https://real-time-backend-preview.vercel.app/api/user');
-        const responseData = await response.json();
-        const data = responseData.data || responseData;
+        // Fetch multiple users
+        const userPromises = Array.from({length: 6}, () => 
+          fetch('https://real-time-backend-preview.vercel.app/api/user')
+        );
+        const responses = await Promise.all(userPromises);
+        const userDataArray = await Promise.all(responses.map(res => res.json()));
 
-        const initials = data.name.split(' ').map(n => n[0]).join('').toUpperCase();
+        // Create grid layout for multiple users
+        const usersHTML = userDataArray.map(userData => {
+          const data = userData.data || userData;
+          const initials = data.name.split(' ').map(n => n[0]).join('').toUpperCase();
+          return `
+            <div class="user-card-grid">
+              <div class="user-avatar">${initials}</div>
+              <div class="user-details">
+                <h3>${data.name}</h3>
+                <p class="user-email">${data.email}</p>
+                <p class="user-role">${data.role || 'Team Member'}</p>
+                <p class="user-company">${data.company}</p>
+                <p class="user-address">${data.address}</p>
+                <div class="user-meta">
+                  <span class="user-id">ID: ${data.id}</span>
+                  <span class="join-date">${new Date(data.createdAt).toLocaleDateString()}</span>
+                </div>
+              </div>
+            </div>
+          `;
+        }).join('');
 
         document.getElementById('userContent').innerHTML = `
-          <div class="user-avatar">${initials}</div>
-          <div class="user-info">
-            <div class="info-item">
-              <span class="info-label">Name:</span>
-              <span class="info-value">${data.name}</span>
-            </div>
-            <div class="info-item">
-              <span class="info-label">Email:</span>
-              <span class="info-value">${data.email}</span>
-            </div>
-            <div class="info-item">
-              <span class="info-label">Address:</span>
-              <span class="info-value">${data.address}</span>
-            </div>
-            <div class="info-item">
-              <span class="info-label">Company:</span>
-              <span class="info-value">${data.company}</span>
-            </div>
+          <div class="users-grid">
+            ${usersHTML}
           </div>
+          <button onclick="loadUserData()" class="refresh-btn">Load More Users</button>
         `;
       } catch (error) {
         document.getElementById('userContent').innerHTML = '<div class="error">Error loading user data. Please try again.</div>';
