@@ -245,8 +245,16 @@
   <script>
     async function loadProductData() {
       try {
+        console.log('Fetching product data from /api/product');
         const response = await fetch('/api/product');
+        console.log('Response status:', response.status, response.statusText);
+        
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+        
         const responseData = await response.json();
+        console.log('Response data:', responseData);
         const data = responseData.data || responseData;
 
         document.getElementById('productContent').innerHTML = `
@@ -270,8 +278,8 @@
           </div>
         `;
       } catch (error) {
-        document.getElementById('productContent').innerHTML = '<div class="error">Error loading product data. Please try again.</div>';
         console.error('Error loading product data:', error);
+        document.getElementById('productContent').innerHTML = `<div class="error">Error loading product data: ${error.message}<br>Check console for details.</div>`;
       }
     }
 

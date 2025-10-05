@@ -44,11 +44,15 @@ function App() {
     setLoading(true);
     setError(null);
     try {
+      console.log('Fetching user data from:', '/api/user');
       const res = await axios.get('/api/user');
+      console.log('User response:', res);
       setData(res.data);
-    } catch (err) {
-      setError('Failed to fetch user data. Please try again.');
+    } catch (err: any) {
       console.error('User fetch error:', err);
+      console.error('Error response:', err.response);
+      const errorMsg = err.response?.data || err.message || 'Unknown error occurred';
+      setError(`Failed to fetch user data: ${typeof errorMsg === 'string' ? errorMsg : JSON.stringify(errorMsg)}`);
     } finally {
       setLoading(false);
     }
@@ -58,11 +62,15 @@ function App() {
     setLoading(true);
     setError(null);
     try {
+      console.log('Fetching product data from:', '/api/product');
       const res = await axios.get('/api/product');
+      console.log('Product response:', res);
       setData(res.data);
-    } catch (err) {
-      setError('Failed to fetch product data. Please try again.');
+    } catch (err: any) {
       console.error('Product fetch error:', err);
+      console.error('Error response:', err.response);
+      const errorMsg = err.response?.data || err.message || 'Unknown error occurred';
+      setError(`Failed to fetch product data: ${typeof errorMsg === 'string' ? errorMsg : JSON.stringify(errorMsg)}`);
     } finally {
       setLoading(false);
     }

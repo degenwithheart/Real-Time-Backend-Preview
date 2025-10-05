@@ -238,8 +238,16 @@
   <script>
     async function loadUserData() {
       try {
+        console.log('Fetching user data from /api/user');
         const response = await fetch('/api/user');
+        console.log('Response status:', response.status, response.statusText);
+        
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+        
         const responseData = await response.json();
+        console.log('Response data:', responseData);
         const data = responseData.data || responseData;
 
         document.getElementById('userContent').innerHTML = `
@@ -266,8 +274,8 @@
           </div>
         `;
       } catch (error) {
-        document.getElementById('userContent').innerHTML = '<div class="error">Error loading user data. Please try again.</div>';
         console.error('Error loading user data:', error);
+        document.getElementById('userContent').innerHTML = `<div class="error">Error loading user data: ${error.message}<br>Check console for details.</div>`;
       }
     }
 
