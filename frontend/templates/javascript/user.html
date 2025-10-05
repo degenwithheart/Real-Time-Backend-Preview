@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Information - JavaScript Demo</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>User Information</h1>
+    <p class="description">Fetching user data from the mock API...</p>
+
+    <div id="output">
+      <div class="output-container" id="resultContainer" style="display: none;">
+        <div id="userInfo"></div>
+      </div>
+      <div id="loading" class="output-container">
+        <p>Loading user data...</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const resultContainer = document.getElementById('resultContainer');
+    const userInfo = document.getElementById('userInfo');
+    const loading = document.getElementById('loading');
+
+    fetch('/api/user')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+        return response.json();
+      })
+      .then(responseData => {
+        loading.style.display = 'none';
+
+        const data = responseData.data || responseData; // Handle both old and new response formats
+
+        userInfo.innerHTML = `
+          <div style="display: grid; gap: 1rem;">
+            <div style="display: flex; align-items: center; gap: 1rem;">
+              <img src="${data.avatar}" alt="User Avatar" style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover;">
+              <div>
+                <h3 style="margin: 0; color: #1e40af;">${data.name}</h3>
+                <p style="margin: 0.25rem 0; color: #6b7280;">ID: ${data.id}</p>
+              </div>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+              <div>
+                <strong style="color: #374151;">Email:</strong><br>
+                <span style="color: #4b5563;">${data.email}</span>
+              </div>
+              <div>
+                <strong style="color: #374151;">Phone:</strong><br>
+                <span style="color: #4b5563;">${data.phone}</span>
+              </div>
+              <div style="grid-column: span 2;">
+                <strong style="color: #374151;">Address:</strong><br>
+                <span style="color: #4b5563;">${data.address}</span>
+              </div>
+              <div>
+                <strong style="color: #374151;">Company:</strong><br>
+                <span style="color: #4b5563;">${data.company}</span>
+              </div>
+              <div>
+                <strong style="color: #374151;">Created:</strong><br>
+                <span style="color: #4b5563;">${new Date(data.createdAt).toLocaleDateString()}</span>
+              </div>
+            </div>
+          </div>
+        `;
+
+        resultContainer.style.display = 'block';
+      })
+      .catch(error => {
+        loading.style.display = 'none';
+        userInfo.innerHTML = `<div class="error-message">Failed to load user data: ${error.message}</div>`;
+        resultContainer.style.display = 'block';
+      });
+  </script>
+</body>
+</html>
+          <p><strong>Company:</strong> ${data.company}</p>
+        `;
+      })
+      .catch(error => {
+        document.getElementById('user').innerHTML = '<p>Error loading user data.</p>';
+      });
+  </script>
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Real-Time Backend Preview - JavaScript</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Real-Time Backend Preview</h1>
+    <p class="description">Click the buttons below to fetch data from the mock API endpoints.</p>
+
+    <div class="button-grid">
+      <button id="userBtn">Get User Data</button>
+      <button id="productBtn">Get Product Data</button>
+    </div>
+
+    <div id="output">
+      <div class="output-container" id="resultContainer" style="display: none;">
+        <h2 id="resultTitle"></h2>
+        <pre id="resultData"></pre>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const userBtn = document.getElementById('userBtn');
+    const productBtn = document.getElementById('productBtn');
+    const resultContainer = document.getElementById('resultContainer');
+    const resultTitle = document.getElementById('resultTitle');
+    const resultData = document.getElementById('resultData');
+
+    function showResult(title, data) {
+      resultTitle.textContent = title;
+      resultData.textContent = JSON.stringify(data, null, 2);
+      resultContainer.style.display = 'block';
+      resultContainer.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function showError(message) {
+      resultTitle.textContent = 'Error';
+      resultData.textContent = message;
+      resultData.className = 'error-message';
+      resultContainer.style.display = 'block';
+    }
+
+    userBtn.addEventListener('click', () => {
+      userBtn.disabled = true;
+      userBtn.textContent = 'Loading...';
+
+      fetch('/api/user')
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+          }
+          return response.json();
+        })
+        .then(data => {
+          showResult('User Data', data);
+        })
+        .catch(error => {
+          showError(`Failed to fetch user data: ${error.message}`);
+        })
+        .finally(() => {
+          userBtn.disabled = false;
+          userBtn.textContent = 'Get User Data';
+        });
+    });
+
+    productBtn.addEventListener('click', () => {
+      productBtn.disabled = true;
+      productBtn.textContent = 'Loading...';
+
+      fetch('/api/product')
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+          }
+          return response.json();
+        })
+        .then(data => {
+          showResult('Product Data', data);
+        })
+        .catch(error => {
+          showError(`Failed to fetch product data: ${error.message}`);
+        })
+        .finally(() => {
+          productBtn.disabled = false;
+          productBtn.textContent = 'Get Product Data';
+        });
+    });
+  </script>
+</body>
+</html>

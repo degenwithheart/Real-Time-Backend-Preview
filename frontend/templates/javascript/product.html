@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Information - JavaScript Demo</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Product Information</h1>
+    <p class="description">Fetching product data from the mock API...</p>
+
+    <div id="output">
+      <div class="output-container" id="resultContainer" style="display: none;">
+        <div id="productInfo"></div>
+      </div>
+      <div id="loading" class="output-container">
+        <p>Loading product data...</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const resultContainer = document.getElementById('resultContainer');
+    const productInfo = document.getElementById('productInfo');
+    const loading = document.getElementById('loading');
+
+    fetch('/api/product')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+        return response.json();
+      })
+      .then(responseData => {
+        loading.style.display = 'none';
+
+        const data = responseData.data || responseData; // Handle both old and new response formats
+
+        productInfo.innerHTML = `
+          <div style="display: grid; gap: 1.5rem;">
+            <div style="display: flex; align-items: center; gap: 1.5rem;">
+              <img src="${data.image}" alt="Product Image" style="width: 80px; height: 80px; border-radius: 12px; object-fit: cover; border: 2px solid #e5e7eb;">
+              <div>
+                <h3 style="margin: 0; color: #1e40af; font-size: 1.25rem;">${data.name}</h3>
+                <p style="margin: 0.25rem 0; font-size: 1.5rem; font-weight: 700; color: #059669;">$${data.price}</p>
+                <p style="margin: 0; color: #6b7280;">ID: ${data.id}</p>
+              </div>
+            </div>
+            <div>
+              <strong style="color: #374151;">Description:</strong><br>
+              <p style="color: #4b5563; margin: 0.5rem 0; line-height: 1.6;">${data.description}</p>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem;">
+              <div style="background: #f3f4f6; padding: 1rem; border-radius: 8px; text-align: center;">
+                <strong style="color: #374151; display: block;">Category</strong>
+                <span style="color: #4b5563; font-weight: 500;">${data.category}</span>
+              </div>
+              <div style="background: #f3f4f6; padding: 1rem; border-radius: 8px; text-align: center;">
+                <strong style="color: #374151; display: block;">In Stock</strong>
+                <span style="color: ${data.inStock ? '#059669' : '#dc2626'}; font-weight: 500;">${data.inStock ? 'Yes' : 'No'}</span>
+              </div>
+              <div style="background: #f3f4f6; padding: 1rem; border-radius: 8px; text-align: center;">
+                <strong style="color: #374151; display: block;">Rating</strong>
+                <span style="color: #4b5563; font-weight: 500;">${data.rating} ⭐</span>
+              </div>
+            </div>
+          </div>
+        `;
+
+        resultContainer.style.display = 'block';
+      })
+      .catch(error => {
+        loading.style.display = 'none';
+        productInfo.innerHTML = `<div class="error-message">Failed to load product data: ${error.message}</div>`;
+        resultContainer.style.display = 'block';
+      });
+  </script>
+</body>
+</html>
