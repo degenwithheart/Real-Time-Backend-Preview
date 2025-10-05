@@ -44,7 +44,7 @@ The API will be available at `/api/user` and `/api/product`.
 
 ### PHP
 - `php user.php` (requires PHP installed)
-- Or open `php/index.php` in your browser
+- Or open `php/index.html` in your browser
 
 ### Ruby
 - `ruby user.rb`

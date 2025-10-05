@@ -20,17 +20,37 @@
   <div class="container">
     <div class="readme-content">
       <h1>PHP API Template</h1>
+
       <p>This template demonstrates how to connect to the mock API using PHP.</p>
+
       <h2>API Endpoints</h2>
       <ul>
         <li><code>GET https://real-time-backend-preview.vercel.app/api/user</code> - Returns random user data</li>
         <li><code>GET https://real-time-backend-preview.vercel.app/api/product</code> - Returns random product data</li>
       </ul>
-      <h2>Prerequisites</h2>
-      <p>Ensure the backend is running:</p>
-      <pre><code>cd ../../backend
-npm install
-npm start</code></pre>
+
+      <h2>Usage</h2>
+      <p>Run the examples:</p>
+      <pre><code>php user.php
+php product.php</code></pre>
+
+      <h2>Building Web Apps</h2>
+      <p>Use this mock API to prototype your PHP applications.</p>
+
+      <p>Example: Fetch and display user data.</p>
+
+      <pre><code>&lt;?php
+$url = 'https://real-time-backend-preview.vercel.app/api/user';
+$response = file_get_contents($url);
+$user = json_decode($response, true);
+
+echo "&lt;h1&gt;User Info&lt;/h1&gt;";
+echo "&lt;p&gt;Name: " . $user['name'] . "&lt;/p&gt;";
+echo "&lt;p&gt;Email: " . $user['email'] . "&lt;/p&gt;";
+echo "&lt;p&gt;Address: " . $user['address'] . "&lt;/p&gt;";
+echo "&lt;p&gt;Company: " . $user['company'] . "&lt;/p&gt;";
+?&gt;</code></pre>
+
       <p>Replace the mock API URL with your production API when ready.</p>
     </div>
   </div>

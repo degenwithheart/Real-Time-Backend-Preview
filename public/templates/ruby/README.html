@@ -20,17 +20,39 @@
   <div class="container">
     <div class="readme-content">
       <h1>Ruby API Template</h1>
+
       <p>This template demonstrates how to connect to the mock API using Ruby.</p>
+
       <h2>API Endpoints</h2>
       <ul>
         <li><code>GET https://real-time-backend-preview.vercel.app/api/user</code> - Returns random user data</li>
         <li><code>GET https://real-time-backend-preview.vercel.app/api/product</code> - Returns random product data</li>
       </ul>
-      <h2>Prerequisites</h2>
-      <p>Ensure the backend is running:</p>
-      <pre><code>cd ../../backend
-npm install
-npm start</code></pre>
+
+      <p>Install Ruby.</p>
+
+      <h2>Usage</h2>
+      <p>Create a Ruby script and run:</p>
+      <pre><code># Add the user.rb content
+ruby user.rb
+
+# Add the product.rb content
+ruby product.rb</code></pre>
+
+      <h2>Building Ruby Apps</h2>
+      <p>Use this mock API to prototype your Ruby applications.</p>
+
+      <p>Example: Fetch and display user data.</p>
+
+      <pre><code>require 'net/http'
+require 'json'
+
+uri = URI('https://real-time-backend-preview.vercel.app/api/user')
+response = Net::HTTP.get(uri)
+
+puts "User data:"
+puts response</code></pre>
+
       <p>Replace the mock API URL with your production API when ready.</p>
     </div>
   </div>

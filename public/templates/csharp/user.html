@@ -3,27 +3,258 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>User Page</title>
+  <title>C# User Demo</title>
   <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.6;
+    }
+
+    header {
+      background: linear-gradient(135deg, #68217a 0%, #9b4dca 100%);
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      position: static;
+      width: 100%;
+      top: auto;
+      left: auto;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    nav {
+      display: flex;
+      gap: 2rem;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      transition: opacity 0.3s;
+    }
+
+    nav a:hover {
+      opacity: 0.8;
+    }
+
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 3rem 2rem;
+    }
+
+    .hero {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, #68217a 0%, #9b4dca 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      color: #666;
+      margin-bottom: 2rem;
+    }
+
+    .user-card {
+      background: white;
+      padding: 3rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .user-avatar {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #68217a 0%, #9b4dca 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 3rem;
+      font-weight: bold;
+      margin: 0 auto 2rem;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+    .user-info {
+      display: grid;
+      gap: 1.5rem;
+    }
+
+    .info-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem;
+      background: #f8f9fa;
+      border-radius: 8px;
+      border-left: 4px solid #68217a;
+    }
+
+    .info-label {
+      font-weight: 600;
+      color: #333;
+    }
+
+    .info-value {
+      color: #666;
+      font-family: monospace;
+    }
+
+    .loading {
+      text-align: center;
+      color: #666;
+      font-size: 1.2rem;
+    }
+
+    .error {
+      text-align: center;
+      color: #dc3545;
+      font-size: 1.2rem;
+    }
+
+    .back-button {
+      display: inline-block;
+      margin-top: 2rem;
+      padding: 1rem 2rem;
+      background: #f8f9fa;
+      color: #333;
+      text-decoration: none;
+      border-radius: 8px;
+      border: 2px solid #e9ecef;
+      font-weight: 600;
+      transition: all 0.3s;
+    }
+
+    .back-button:hover {
+      background: #e9ecef;
+      transform: translateY(-2px);
+    }
+
+    footer {
+      background: #333;
+      color: white;
+      text-align: center;
+      padding: 2rem;
+      margin-top: 4rem;
+      position: static;
+      width: 100%;
+      bottom: auto;
+      left: auto;
+    }
+
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      nav {
+        gap: 1rem;
+      }
+
+      .hero h1 {
+        font-size: 2rem;
+      }
+
+      .user-card {
+        padding: 2rem;
+      }
+
+      .info-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+      }
+    }
+  </style>
 </head>
 <body>
-  <h1>User Information</h1>
-  <div id="user"></div>
+  <header>
+    <div class="logo">C# Demo Page</div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="product.html">Products</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h1>C# User Demo</h1>
+      <p>View randomly generated user data using C#'s powerful .NET capabilities</p>
+    </section>
+
+    <div class="user-card">
+      <div id="userContent" class="loading">Loading user data...</div>
+    </div>
+
+    <div style="text-align: center;">
+      <a href="index.html" class="back-button">← Back to Home</a>
+    </div>
+  </main>
+
+  <footer>
+    <p>created with ❤️ by DegenWithHeart</p>
+  </footer>
+
   <script>
-    fetch('/api/user')
-      .then(response => response.json())
-      .then(responseData => {
-        const data = responseData.data || responseData; // Handle both old and new response formats
-        document.getElementById('user').innerHTML = `
-          <p><strong>Name:</strong> ${data.name}</p>
-          <p><strong>Email:</strong> ${data.email}</p>
-          <p><strong>Address:</strong> ${data.address}</p>
-          <p><strong>Company:</strong> ${data.company}</p>
+    async function loadUserData() {
+      try {
+        const response = await fetch('/api/user');
+        const responseData = await response.json();
+        const data = responseData.data || responseData;
+
+        const initials = data.name.split(' ').map(n => n[0]).join('').toUpperCase();
+
+        document.getElementById('userContent').innerHTML = `
+          <div class="user-avatar">${initials}</div>
+          <div class="user-info">
+            <div class="info-item">
+              <span class="info-label">Name:</span>
+              <span class="info-value">${data.name}</span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">Email:</span>
+              <span class="info-value">${data.email}</span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">Address:</span>
+              <span class="info-value">${data.address}</span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">Company:</span>
+              <span class="info-value">${data.company}</span>
+            </div>
+          </div>
         `;
-      })
-      .catch(error => {
-        document.getElementById('user').innerHTML = '<p>Error loading user data.</p>';
-      });
+      } catch (error) {
+        document.getElementById('userContent').innerHTML = '<div class="error">Error loading user data. Please try again.</div>';
+        console.error('Error loading user data:', error);
+      }
+    }
+
+    loadUserData();
   </script>
 </body>
 </html>

@@ -20,17 +20,51 @@
   <div class="container">
     <div class="readme-content">
       <h1>C# API Template</h1>
+
       <p>This template demonstrates how to connect to the mock API using C#.</p>
+
       <h2>API Endpoints</h2>
       <ul>
         <li><code>GET https://real-time-backend-preview.vercel.app/api/user</code> - Returns random user data</li>
         <li><code>GET https://real-time-backend-preview.vercel.app/api/product</code> - Returns random product data</li>
       </ul>
-      <h2>Prerequisites</h2>
-      <p>Ensure the backend is running:</p>
-      <pre><code>cd ../../backend
-npm install
-npm start</code></pre>
+
+      <p>Install .NET SDK.</p>
+
+      <h2>Usage</h2>
+      <p>Create a console app and run:</p>
+      <pre><code>dotnet new console -n UserApp
+cd UserApp
+# Add the User.cs content
+dotnet run
+
+dotnet new console -n ProductApp
+cd ProductApp
+# Add the Product.cs content
+dotnet run</code></pre>
+
+      <h2>Building .NET Apps</h2>
+      <p>Use this mock API to prototype your C#/.NET applications.</p>
+
+      <p>Example: Fetch and display user data.</p>
+
+      <pre><code>using System;
+using System.Net.Http;
+using System.Threading.Tasks;
+
+class Program
+{
+    static async Task Main()
+    {
+        using var client = new HttpClient();
+        var response = await client.GetStringAsync(
+            "https://real-time-backend-preview.vercel.app/api/user");
+        
+        Console.WriteLine("User data:");
+        Console.WriteLine(response);
+    }
+}</code></pre>
+
       <p>Replace the mock API URL with your production API when ready.</p>
     </div>
   </div>

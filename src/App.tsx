@@ -88,7 +88,7 @@ function App() {
             </button>
           </div>
           {error && (
-            <div className="error-message" style={{ color: 'red', margin: '1rem 0', padding: '1rem', backgroundColor: '#fee2e2', borderRadius: '4px' }}>
+            <div className="error-message">
               {error}
             </div>
           )}

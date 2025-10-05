@@ -20,17 +20,49 @@
   <div class="container">
     <div class="readme-content">
       <h1>Kotlin API Template</h1>
+
       <p>This template demonstrates how to connect to the mock API using Kotlin.</p>
+
       <h2>API Endpoints</h2>
       <ul>
         <li><code>GET https://real-time-backend-preview.vercel.app/api/user</code> - Returns random user data</li>
         <li><code>GET https://real-time-backend-preview.vercel.app/api/product</code> - Returns random product data</li>
       </ul>
-      <h2>Prerequisites</h2>
-      <p>Ensure the backend is running:</p>
-      <pre><code>cd ../../backend
-npm install
-npm start</code></pre>
+
+      <h2>Usage</h2>
+      <p>Compile and run the examples:</p>
+      <pre><code>kotlinc User.kt -include-runtime -d User.jar
+java -jar User.jar
+
+kotlinc Product.kt -include-runtime -d Product.jar
+java -jar Product.jar</code></pre>
+
+      <h2>Building Android Apps</h2>
+      <p>Use this mock API to prototype your Kotlin/Android applications.</p>
+
+      <p>Example: Fetch and display user data.</p>
+
+      <pre><code>import java.net.HttpURLConnection
+import java.net.URL
+import kotlinx.coroutines.*
+
+suspend fun fetchUser() {
+    withContext(Dispatchers.IO) {
+        val url = URL("https://real-time-backend-preview.vercel.app/api/user")
+        val connection = url.openConnection() as HttpURLConnection
+        
+        try {
+            val response = connection.inputStream.bufferedReader().use { it.readText() }
+            println("User data: $response")
+        } finally {
+            connection.disconnect()
+        }
+    }
+}
+
+// Call in coroutine
+GlobalScope.launch { fetchUser() }</code></pre>
+
       <p>Replace the mock API URL with your production API when ready.</p>
     </div>
   </div>

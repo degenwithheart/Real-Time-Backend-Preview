@@ -17,14 +17,28 @@ npm install
 npm start
 ```
 
+# Java API Template
+
+This template demonstrates how to connect to the mock API using Java.
+
+## API Endpoints
+
+- `GET https://real-time-backend-preview.vercel.app/api/user` - Returns random user data
+- `GET https://real-time-backend-preview.vercel.app/api/product` - Returns random product data
+
 ## Usage
 
 Compile and run the examples:
 
 ```bash
-javac User.java && java User
-javac Product.java && java Product
+javac User.java
+java User
+
+javac Product.java
+java Product
 ```
+
+## Building Frontend Apps
 
 ## Building Frontend Apps
 

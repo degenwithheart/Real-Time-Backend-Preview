@@ -3,79 +3,279 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Product Information - JavaScript Demo</title>
+  <title>JavaScript Product Demo</title>
   <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.6;
+    }
+
+    header {
+      background: linear-gradient(135deg, #f7df1e 0%, #333333 100%);
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      position: static;
+      width: 100%;
+      top: auto;
+      left: auto;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    nav {
+      display: flex;
+      gap: 2rem;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      transition: opacity 0.3s;
+    }
+
+    nav a:hover {
+      opacity: 0.8;
+    }
+
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 3rem 2rem;
+    }
+
+    .hero {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, #f7df1e 0%, #333333 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      color: #666;
+      margin-bottom: 2rem;
+    }
+
+    .product-card {
+      background: white;
+      padding: 3rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .product-profile {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      margin-bottom: 2rem;
+      padding-bottom: 2rem;
+      border-bottom: 2px solid #f8f9fa;
+    }
+
+    .product-image {
+      width: 80px;
+      height: 80px;
+      border-radius: 12px;
+      object-fit: cover;
+      border: 3px solid #f7df1e;
+    }
+
+    .product-header h2 {
+      margin: 0 0 0.5rem 0;
+      color: #333;
+    }
+
+    .product-price {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #28a745;
+      margin: 0.25rem 0;
+    }
+
+    .product-id {
+      color: #666;
+      font-size: 0.9rem;
+    }
+
+    .product-info {
+      display: grid;
+      gap: 1.5rem;
+    }
+
+    .info-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem;
+      background: #f8f9fa;
+      border-radius: 8px;
+      border-left: 4px solid #f7df1e;
+    }
+
+    .info-label {
+      font-weight: 600;
+      color: #333;
+    }
+
+    .info-value {
+      color: #666;
+      font-family: monospace;
+    }
+
+    .loading {
+      text-align: center;
+      color: #666;
+      font-size: 1.2rem;
+    }
+
+    .error {
+      text-align: center;
+      color: #dc3545;
+      font-size: 1.2rem;
+    }
+
+    .back-button {
+      display: inline-block;
+      margin-top: 2rem;
+      padding: 1rem 2rem;
+      background: #f8f9fa;
+      color: #333;
+      text-decoration: none;
+      border-radius: 8px;
+      border: 2px solid #e9ecef;
+      font-weight: 600;
+      transition: all 0.3s;
+    }
+
+    .back-button:hover {
+      background: #e9ecef;
+      transform: translateY(-2px);
+    }
+
+    footer {
+      background: #333;
+      color: white;
+      text-align: center;
+      padding: 2rem;
+      margin-top: 4rem;
+      position: static;
+      width: 100%;
+      bottom: auto;
+      left: auto;
+    }
+
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      nav {
+        gap: 1rem;
+      }
+
+      .hero h1 {
+        font-size: 2rem;
+      }
+
+      .product-card {
+        padding: 2rem;
+      }
+
+      .product-profile {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .info-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+      }
+    }
+  </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Product Information</h1>
-    <p class="description">Fetching product data from the mock API...</p>
+  <header>
+    <div class="logo">JavaScript Demo Page</div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="user.html">Users</a>
+    </nav>
+  </header>
 
-    <div id="output">
-      <div class="output-container" id="resultContainer" style="display: none;">
-        <div id="productInfo"></div>
-      </div>
-      <div id="loading" class="output-container">
-        <p>Loading product data...</p>
-      </div>
+  <main>
+    <section class="hero">
+      <h1>JavaScript Product Demo</h1>
+      <p>View randomly generated product data using vanilla JavaScript and fetch API</p>
+    </section>
+
+    <div class="product-card">
+      <div id="productContent" class="loading">Loading product data...</div>
     </div>
-  </div>
+
+    <div style="text-align: center;">
+      <a href="index.html" class="back-button">← Back to Home</a>
+    </div>
+  </main>
+
+  <footer>
+    <p>created with ❤️ by DegenWithHeart</p>
+  </footer>
 
   <script>
-    const resultContainer = document.getElementById('resultContainer');
-    const productInfo = document.getElementById('productInfo');
-    const loading = document.getElementById('loading');
+    async function loadProductData() {
+      try {
+        const response = await fetch('/api/product');
+        const responseData = await response.json();
+        const data = responseData.data || responseData;
 
-    fetch('https://real-time-backend-preview.vercel.app/api/product')
-      .then(response => {
-        if (!response.ok) {
-          throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-        }
-        return response.json();
-      })
-      .then(responseData => {
-        loading.style.display = 'none';
-
-        const data = responseData.data || responseData; // Handle both old and new response formats
-
-        productInfo.innerHTML = `
-          <div style="display: grid; gap: 1.5rem;">
-            <div style="display: flex; align-items: center; gap: 1.5rem;">
-              <img src="${data.image}" alt="Product Image" style="width: 80px; height: 80px; border-radius: 12px; object-fit: cover; border: 2px solid #e5e7eb;">
-              <div>
-                <h3 style="margin: 0; color: #1e40af; font-size: 1.25rem;">${data.name}</h3>
-                <p style="margin: 0.25rem 0; font-size: 1.5rem; font-weight: 700; color: #059669;">$${data.price}</p>
-                <p style="margin: 0; color: #6b7280;">ID: ${data.id}</p>
-              </div>
+        document.getElementById('productContent').innerHTML = `
+          <div class="product-profile">
+            <img src="${data.image}" alt="Product Image" class="product-image">
+            <div class="product-header">
+              <h2>${data.name}</h2>
+              <p class="product-price">$${data.price}</p>
+              <p class="product-id">ID: ${data.id}</p>
             </div>
-            <div>
-              <strong style="color: #374151;">Description:</strong><br>
-              <p style="color: #4b5563; margin: 0.5rem 0; line-height: 1.6;">${data.description}</p>
+          </div>
+          <div class="product-info">
+            <div class="info-item">
+              <span class="info-label">Category:</span>
+              <span class="info-value">${data.category}</span>
             </div>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem;">
-              <div style="background: #f3f4f6; padding: 1rem; border-radius: 8px; text-align: center;">
-                <strong style="color: #374151; display: block;">Category</strong>
-                <span style="color: #4b5563; font-weight: 500;">${data.category}</span>
-              </div>
-              <div style="background: #f3f4f6; padding: 1rem; border-radius: 8px; text-align: center;">
-                <strong style="color: #374151; display: block;">In Stock</strong>
-                <span style="color: ${data.inStock ? '#059669' : '#dc2626'}; font-weight: 500;">${data.inStock ? 'Yes' : 'No'}</span>
-              </div>
-              <div style="background: #f3f4f6; padding: 1rem; border-radius: 8px; text-align: center;">
-                <strong style="color: #374151; display: block;">Rating</strong>
-                <span style="color: #4b5563; font-weight: 500;">${data.rating} ⭐</span>
-              </div>
+            <div class="info-item">
+              <span class="info-label">Description:</span>
+              <span class="info-value">${data.description}</span>
             </div>
           </div>
         `;
+      } catch (error) {
+        document.getElementById('productContent').innerHTML = '<div class="error">Error loading product data. Please try again.</div>';
+        console.error('Error loading product data:', error);
+      }
+    }
 
-        resultContainer.style.display = 'block';
-      })
-      .catch(error => {
-        loading.style.display = 'none';
-        productInfo.innerHTML = `<div class="error-message">Failed to load product data: ${error.message}</div>`;
-        resultContainer.style.display = 'block';
-      });
+    loadProductData();
   </script>
 </body>
 </html>

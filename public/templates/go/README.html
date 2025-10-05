@@ -20,17 +20,58 @@
   <div class="container">
     <div class="readme-content">
       <h1>Go API Template</h1>
+
       <p>This template demonstrates how to connect to the mock API using Go.</p>
+
       <h2>API Endpoints</h2>
       <ul>
         <li><code>GET https://real-time-backend-preview.vercel.app/api/user</code> - Returns random user data</li>
         <li><code>GET https://real-time-backend-preview.vercel.app/api/product</code> - Returns random product data</li>
       </ul>
-      <h2>Prerequisites</h2>
-      <p>Ensure the backend is running:</p>
-      <pre><code>cd ../../backend
-npm install
-npm start</code></pre>
+
+      <p>Install Go.</p>
+
+      <h2>Usage</h2>
+      <p>Create a Go module and run:</p>
+      <pre><code>go mod init userapp
+# Add the user.go content
+go run user.go
+
+go mod init productapp
+# Add the product.go content
+go run product.go</code></pre>
+
+      <h2>Building Go Apps</h2>
+      <p>Use this mock API to prototype your Go applications.</p>
+
+      <p>Example: Fetch and display user data.</p>
+
+      <pre><code>package main
+
+import (
+	"fmt"
+	"io"
+	"net/http"
+)
+
+func main() {
+	resp, err := http.Get("https://real-time-backend-preview.vercel.app/api/user")
+	if err != nil {
+		fmt.Println("Error:", err)
+		return
+	}
+	defer resp.Body.Close()
+
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		fmt.Println("Error:", err)
+		return
+	}
+
+	fmt.Println("User data:")
+	fmt.Println(string(body))
+}</code></pre>
+
       <p>Replace the mock API URL with your production API when ready.</p>
     </div>
   </div>

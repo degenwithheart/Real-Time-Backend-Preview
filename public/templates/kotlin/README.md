@@ -19,12 +19,28 @@ npm start
 
 ## Usage
 
+# Kotlin API Template
+
+This template demonstrates how to connect to the mock API using Kotlin.
+
+## API Endpoints
+
+- `GET https://real-time-backend-preview.vercel.app/api/user` - Returns random user data
+- `GET https://real-time-backend-preview.vercel.app/api/product` - Returns random product data
+
+## Usage
+
 Compile and run the examples:
 
 ```bash
-kotlinc User.kt -include-runtime -d User.jar && java -jar User.jar
-kotlinc Product.kt -include-runtime -d Product.jar && java -jar Product.jar
+kotlinc User.kt -include-runtime -d User.jar
+java -jar User.jar
+
+kotlinc Product.kt -include-runtime -d Product.jar
+java -jar Product.jar
 ```
+
+## Building Frontend Apps
 
 ## Building Frontend Apps
 
