@@ -11,7 +11,7 @@ PowerShell 3.0+ includes Invoke-RestMethod by default.
 ### Basic Usage
 
 ```ps1
-$response = Invoke-RestMethod -Uri "https://api.your-domain.com/users" -Method GET
+$response = Invoke-RestMethod -Uri "https://real-time-backend-preview.vercel.app/users" -Method GET
 $response
 ```
 
@@ -24,7 +24,7 @@ $headers = @{
     "Authorization" = "Bearer your-token-here"
     "Content-Type" = "application/json"
 }
-$response = Invoke-RestMethod -Uri "https://api.your-domain.com/users" -Method GET -Headers $headers
+$response = Invoke-RestMethod -Uri "https://real-time-backend-preview.vercel.app/users" -Method GET -Headers $headers
 ```
 
 ### Creating Data
@@ -37,7 +37,7 @@ $userData = @{
     email = "john@example.com"
 } | ConvertTo-Json
 
-$response = Invoke-RestMethod -Uri "https://api.your-domain.com/users" -Method POST -Headers $headers -Body $userData
+$response = Invoke-RestMethod -Uri "https://real-time-backend-preview.vercel.app/users" -Method POST -Headers $headers -Body $userData
 ```
 
 ## API Endpoints
@@ -75,7 +75,7 @@ All API responses are in JSON format:
 
 ```ps1
 try {
-    $response = Invoke-RestMethod -Uri "https://api.your-domain.com/users" -ErrorAction Stop
+    $response = Invoke-RestMethod -Uri "https://real-time-backend-preview.vercel.app/users" -ErrorAction Stop
 } catch {
     Write-Error "Request failed: $($_.Exception.Message)"
 }
@@ -92,7 +92,7 @@ try {
 // Implement pagination to handle large datasets
 page = 1
 while (has_more_data) {
-    response = http_client.get("https://api.your-domain.com/users?page=" + page)
+    response = http_client.get("https://real-time-backend-preview.vercel.app/users?page=" + page)
     process_page(response.data)
     page++
 }

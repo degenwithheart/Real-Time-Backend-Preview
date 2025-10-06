@@ -12,7 +12,7 @@ Install the appropriate HTTP client library for Koka.
 
 ```koka
 // Basic GET request to fetch users
-http_client.get("https://api.your-domain.com/users")
+http_client.get("https://real-time-backend-preview.vercel.app/users")
 ```
 
 ### Authentication
@@ -21,7 +21,7 @@ All API requests require authentication. Include your API token in the Authoriza
 
 ```koka
 // Request with authentication headers
-http_client.get("https://api.your-domain.com/users", headers=auth_headers)
+http_client.get("https://real-time-backend-preview.vercel.app/users", headers=auth_headers)
 ```
 
 ### Creating Data
@@ -31,7 +31,7 @@ To create new resources, send a POST request with JSON data:
 ```koka
 // POST request to create new user
 user_data = {"name": "John Doe", "email": "john@example.com"}
-http_client.post("https://api.your-domain.com/users", data=user_data)
+http_client.post("https://real-time-backend-preview.vercel.app/users", data=user_data)
 ```
 
 ## API Endpoints
@@ -70,7 +70,7 @@ All API responses are in JSON format:
 ```koka
 // Handle HTTP errors and network issues appropriately
 try {
-    response = http_client.get("https://api.your-domain.com/users")
+    response = http_client.get("https://real-time-backend-preview.vercel.app/users")
     handle_response(response)
 } catch (error) {
     handle_error(error)
@@ -88,7 +88,7 @@ try {
 // Implement pagination to handle large datasets
 page = 1
 while (has_more_data) {
-    response = http_client.get("https://api.your-domain.com/users?page=" + page)
+    response = http_client.get("https://real-time-backend-preview.vercel.app/users?page=" + page)
     process_page(response.data)
     page++
 }

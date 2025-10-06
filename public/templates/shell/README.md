@@ -19,7 +19,7 @@ brew install curl
 
 ```sh
 #!/bin/bash
-curl -X GET "https://api.your-domain.com/users"
+curl -X GET "https://real-time-backend-preview.vercel.app/users"
 ```
 
 ### Authentication
@@ -27,7 +27,7 @@ curl -X GET "https://api.your-domain.com/users"
 All API requests require authentication. Include your API token in the Authorization header:
 
 ```sh
-curl -X GET "https://api.your-domain.com/users" \
+curl -X GET "https://real-time-backend-preview.vercel.app/users" \
   -H "Authorization: Bearer your-token-here" \
   -H "Content-Type: application/json"
 ```
@@ -37,7 +37,7 @@ curl -X GET "https://api.your-domain.com/users" \
 To create new resources, send a POST request with JSON data:
 
 ```sh
-curl -X POST "https://api.your-domain.com/users" \
+curl -X POST "https://real-time-backend-preview.vercel.app/users" \
   -H "Authorization: Bearer your-token-here" \
   -H "Content-Type: application/json" \
   -d '{"name": "John Doe", "email": "john@example.com"}'
@@ -78,7 +78,7 @@ All API responses are in JSON format:
 
 ```sh
 # Check HTTP status code
-if ! curl -f -s "https://api.your-domain.com/users" > /dev/null; then
+if ! curl -f -s "https://real-time-backend-preview.vercel.app/users" > /dev/null; then
     echo "Request failed"
     exit 1
 fi
@@ -95,7 +95,7 @@ fi
 # Fetch all pages
 page=1
 while true; do
-    response=$(curl -s "https://api.your-domain.com/users?page=$page")
+    response=$(curl -s "https://real-time-backend-preview.vercel.app/users?page=$page")
     if [ "$(echo "$response" | jq '.data | length')" -eq 0 ]; then
         break
     fi
