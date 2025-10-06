@@ -154,7 +154,21 @@ function ApiTestingDashboard() {
         if (value) url.searchParams.set(key, value);
       });
 
-      const res = await fetch(url.toString());
+      const fetchOptions: RequestInit = {
+        method: selectedEndpoint.method,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      };
+
+      if (selectedEndpoint.method === 'POST') {
+        fetchOptions.body = JSON.stringify({
+          email: 'test@example.com',
+          password: 'password123'
+        });
+      }
+
+      const res = await fetch(url.toString(), fetchOptions);
       const data = await res.json();
 
       if (!res.ok) {
