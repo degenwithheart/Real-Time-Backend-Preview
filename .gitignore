@@ -1,6 +1,3 @@
 # Ignore build and dependency directories
 dist
 node_modules
-
-# Ignore all scripts except compress-build.mjs
-!scripts/compress-build.mjs

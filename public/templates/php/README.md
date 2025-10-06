@@ -1,42 +1,100 @@
-# PHP API Template
+# PHP API Integration
 
-This template demonstrates how to connect to the mock API using PHP.
+## Live Mock API Endpoints
+- GET https://real-time-backend-preview.vercel.app/api/user
+- GET https://real-time-backend-preview.vercel.app/api/product
 
-## API Endpoints
-
-- `GET https://real-time-backend-preview.vercel.app/api/user` - Returns random user data
-- `GET https://real-time-backend-preview.vercel.app/api/product` - Returns random product data
-
-## Usage
-
-Run the examples:
-
-```bash
-php user.php
-php product.php
-```
-
-## Building Frontend Apps
-
-Use this mock API to prototype your frontend while the real backend is being developed.
-
-Example: Fetch and display user data in a web page.
+## Basic cURL Usage
 
 ```php
 <?php
-$userJson = file_get_contents('https://real-time-backend-preview.vercel.app/api/user');
-$user = json_decode($userJson, true);
+
+class ApiClient {
+    private $baseUrl = 'https://real-time-backend-preview.vercel.app';
+    
+    public function fetchUser() {
+        $curl = curl_init();
+        
+        curl_setopt_array($curl, [
+            CURLOPT_URL => $this->baseUrl . '/api/user',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_HTTPHEADER => ['Content-Type: application/json'],
+        ]);
+        
+        $response = curl_exec($curl);
+        $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+        curl_close($curl);
+        
+        if ($httpCode === 200) {
+            echo "User Data: " . $response . "\n";
+            return json_decode($response, true);
+        } else {
+            echo "Error fetching user data\n";
+            return null;
+        }
+    }
+    
+    public function fetchProduct() {
+        $curl = curl_init();
+        
+        curl_setopt_array($curl, [
+            CURLOPT_URL => $this->baseUrl . '/api/product',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_HTTPHEADER => ['Content-Type: application/json'],
+        ]);
+        
+        $response = curl_exec($curl);
+        $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+        curl_close($curl);
+        
+        if ($httpCode === 200) {
+            echo "Product Data: " . $response . "\n";
+            return json_decode($response, true);
+        } else {
+            echo "Error fetching product data\n";
+            return null;
+        }
+    }
+}
+
+// Usage
+$client = new ApiClient();
+$user = $client->fetchUser();
+$product = $client->fetchProduct();
+
 ?>
-<!DOCTYPE html>
-<html>
-<head><title>User</title></head>
-<body>
-  <h1>User Info</h1>
-  <p>Name: <?php echo $user['name']; ?></p>
-  <p>Email: <?php echo $user['email']; ?></p>
-  <!-- etc. -->
-</body>
-</html>
 ```
 
-Replace the mock API URL with your production API when ready.
+## Laravel Integration
+
+```php
+<?php
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
+
+class MockDataController extends Controller
+{
+    private $mockApiUrl = 'https://real-time-backend-preview.vercel.app';
+    
+    public function getUser()
+    {
+        try {
+            $response = Http::get($this->mockApiUrl . '/api/user');
+            return response()->json($response->json());
+        } catch (Exception $e) {
+            return response()->json(['error' => 'Failed to fetch user data'], 500);
+        }
+    }
+    
+    public function getProduct()
+    {
+        try {
+            $response = Http::get($this->mockApiUrl . '/api/product');
+            return response()->json($response->json());
+        } catch (Exception $e) {
+            return response()->json(['error' => 'Failed to fetch product data'], 500);
+        }
+    }
+}
+```

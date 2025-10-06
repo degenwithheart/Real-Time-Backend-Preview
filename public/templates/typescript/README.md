@@ -1,43 +1,97 @@
-# TypeScript API Template
-
-This template demonstrates how to connect to the mock API using TypeScript.
+# TypeScript API Integration
 
 ## API Endpoints
+- GET /api/user - Returns random user data
+- GET /api/product - Returns random product data
 
-- `GET https://real-time-backend-preview.vercel.app/api/user` - Returns random user data
-- `GET https://real-time-backend-preview.vercel.app/api/product` - Returns random product data
+Base URL: https://real-time-backend-preview.vercel.app
 
-## Usage
-
-Run the examples:
-
-```bash
-ts-node user.ts
-ts-node product.ts
-```
-
-## Building Frontend Apps
-
-Use this mock API to prototype your frontend while the real backend is being developed.
-
-Example: Fetch and display user data with TypeScript types.
+## Types
 
 ```typescript
 interface User {
   id: number;
   name: string;
   email: string;
+  phone: string;
   address: string;
   company: string;
+  avatar: string;
+  createdAt: string;
 }
 
-fetch('https://real-time-backend-preview.vercel.app/api/user')
-  .then(response => response.json())
-  .then((data: User) => {
-    // Update your UI with the data
-    console.log('User:', data);
-  })
-  .catch((error: any) => console.error('Error:', error));
+interface Product {
+  id: number;
+  name: string;
+  price: number;
+  description: string;
+  category: string;
+  image: string;
+  inStock: boolean;
+  rating: string;
+  createdAt: string;
+}
+
+interface ApiResponse<T> {
+  success: boolean;
+  message: string;
+  data: T;
+  timestamp: string;
+}
 ```
 
-Replace the mock API URL with your production API when ready.
+## Basic Usage
+
+```typescript
+// Fetch user data
+async function fetchUser(): Promise<ApiResponse<User>> {
+  const response = await fetch('https://real-time-backend-preview.vercel.app/api/user');
+  const userData: ApiResponse<User> = await response.json();
+  console.log('User:', userData);
+  return userData;
+}
+
+// Fetch product data
+async function fetchProduct(): Promise<ApiResponse<Product>> {
+  const response = await fetch('https://real-time-backend-preview.vercel.app/api/product');
+  const productData: ApiResponse<Product> = await response.json();
+  console.log('Product:', productData);
+  return productData;
+}
+```
+
+## React + TypeScript
+
+```tsx
+import React, { useState, useEffect } from 'react';
+
+const UserProfile: React.FC = () => {
+  const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    fetchUser()
+      .then(response => {
+        setUser(response.data);
+        setLoading(false);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        setLoading(false);
+      });
+  }, []);
+
+  if (loading) return <div>Loading...</div>;
+  if (!user) return <div>No user data</div>;
+
+  return (
+    <div>
+      <h2>{user.name}</h2>
+      <p>Email: {user.email}</p>
+      <p>Company: {user.company}</p>
+    </div>
+  );
+};
+
+export default UserProfile;
+```

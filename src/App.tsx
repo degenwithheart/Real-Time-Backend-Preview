@@ -2,7 +2,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import './App.css';
 import CodeTabs from './components/CodeTabs';
-import DownloadsTabs from './components/DownloadsTabs';
+import IntegrationsTabs from './components/IntegrationsTabs';
 
 interface UserData {
   id: number;
@@ -82,31 +82,66 @@ function App() {
       <div className="tabs">
         <button className={activeTab === 'demo' ? 'active' : ''} onClick={() => setActiveTab('demo')}>API Demo</button>
         <button className={activeTab === 'code' ? 'active' : ''} onClick={() => setActiveTab('code')}>Code Examples</button>
-        <button className={activeTab === 'downloads' ? 'active' : ''} onClick={() => setActiveTab('downloads')}>Downloads</button>
+        <button className={activeTab === 'integrations' ? 'active' : ''} onClick={() => setActiveTab('integrations')}>Integrations</button>
       </div>
       {activeTab === 'demo' && (
-        <div>
-          <p>Mock API preview with Faker-powered random data generation.</p>
-          <div className="buttons">
-            <button onClick={fetchUser} disabled={loading}>
-              {loading ? 'Loading...' : 'Get Random User'}
-            </button>
-            <button onClick={fetchProduct} disabled={loading}>
-              {loading ? 'Loading...' : 'Get Random Product'}
-            </button>
+        <div className="demo-section">
+          <div className="demo-header">
+            <h2>🚀 Live API Demo</h2>
+            <p className="demo-description">
+              Test our mock API endpoints with real-time generated data powered by Faker.js
+            </p>
           </div>
+          
+          <div className="api-endpoints">
+            <div className="endpoint-card">
+              <div className="endpoint-info">
+                <h3>👤 User Data</h3>
+                <p>Get random user profile information</p>
+                <code className="endpoint-url">GET /api/user</code>
+              </div>
+              <button 
+                className="endpoint-button user-button" 
+                onClick={fetchUser} 
+                disabled={loading}
+              >
+                {loading ? '⏳ Loading...' : '🎲 Generate User'}
+              </button>
+            </div>
+            
+            <div className="endpoint-card">
+              <div className="endpoint-info">
+                <h3>📦 Product Data</h3>
+                <p>Get random product information</p>
+                <code className="endpoint-url">GET /api/product</code>
+              </div>
+              <button 
+                className="endpoint-button product-button" 
+                onClick={fetchProduct} 
+                disabled={loading}
+              >
+                {loading ? '⏳ Loading...' : '🛍️ Generate Product'}
+              </button>
+            </div>
+          </div>
+
           {error && (
             <div className="error-message">
-              {error}
+              <span className="error-icon">❌</span>
+              <span className="error-text">{error}</span>
             </div>
           )}
+          
           {data && (
-            <pre className="data-box">{JSON.stringify(data, null, 2)}</pre>
+            <div className="result-section">
+              <h3 className="result-title">📋 API Response</h3>
+              <pre className="data-box">{JSON.stringify(data, null, 2)}</pre>
+            </div>
           )}
         </div>
       )}
       {activeTab === 'code' && <CodeTabs />}
-      {activeTab === 'downloads' && <DownloadsTabs />}
+      {activeTab === 'integrations' && <IntegrationsTabs />}
     </div>
   );
 }

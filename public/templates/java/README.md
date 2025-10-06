@@ -1,69 +1,80 @@
-# Java API Template
+# Java API Integration
 
-This template demonstrates how to connect to the mock API using Java.
+## Live Mock API Endpoints
+- GET https://real-time-backend-preview.vercel.app/api/user
+- GET https://real-time-backend-preview.vercel.app/api/product
 
-## API Endpoints
-
-- `GET https://real-time-backend-preview.vercel.app/api/user` - Returns random user data
-- `GET https://real-time-backend-preview.vercel.app/api/product` - Returns random product data
-
-## Prerequisites
-
-Ensure the backend is running:
-
-```bash
-cd ../../backend
-npm install
-npm start
-```
-
-# Java API Template
-
-This template demonstrates how to connect to the mock API using Java.
-
-## API Endpoints
-
-- `GET https://real-time-backend-preview.vercel.app/api/user` - Returns random user data
-- `GET https://real-time-backend-preview.vercel.app/api/product` - Returns random product data
-
-## Usage
-
-Compile and run the examples:
-
-```bash
-javac User.java
-java User
-
-javac Product.java
-java Product
-```
-
-## Building Frontend Apps
-
-## Building Frontend Apps
-
-Use this mock API to prototype your frontend while the real backend is being developed.
-
-Example: Fetch and display user data.
+## Basic HTTP Client
 
 ```java
-import java.net.*;
-import java.io.*;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.net.URI;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class Main {
-  public static void main(String[] args) throws Exception {
-    URL url = new URL("https://real-time-backend-preview.vercel.app/api/user");
-    BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
-    String inputLine;
-    StringBuilder content = new StringBuilder();
-    while ((inputLine = in.readLine()) != null) {
-        content.append(inputLine);
+public class ApiClient {
+    private static final String BASE_URL = "https://real-time-backend-preview.vercel.app";
+    private static final HttpClient client = HttpClient.newHttpClient();
+    private static final ObjectMapper mapper = new ObjectMapper();
+
+    public static void fetchUser() throws Exception {
+        HttpRequest request = HttpRequest.newBuilder()
+            .uri(URI.create(BASE_URL + "/api/user"))
+            .GET()
+            .build();
+
+        HttpResponse<String> response = client.send(request, 
+            HttpResponse.BodyHandlers.ofString());
+        
+        System.out.println("User Data: " + response.body());
     }
-    in.close();
-    System.out.println("User: " + content.toString());
-    // Parse JSON with a library like Gson and use in your app
-  }
+
+    public static void fetchProduct() throws Exception {
+        HttpRequest request = HttpRequest.newBuilder()
+            .uri(URI.create(BASE_URL + "/api/product"))
+            .GET()
+            .build();
+
+        HttpResponse<String> response = client.send(request, 
+            HttpResponse.BodyHandlers.ofString());
+        
+        System.out.println("Product Data: " + response.body());
+    }
+
+    public static void main(String[] args) {
+        try {
+            fetchUser();
+            fetchProduct();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
 ```
 
-Replace the mock API URL with your production API when ready.
+## Spring Boot Integration
+
+```java
+@RestController
+@RequestMapping("/api")
+public class MockDataController {
+    
+    @Autowired
+    private RestTemplate restTemplate;
+    
+    private static final String MOCK_API_URL = "https://real-time-backend-preview.vercel.app";
+    
+    @GetMapping("/user")
+    public ResponseEntity<String> getUser() {
+        String response = restTemplate.getForObject(MOCK_API_URL + "/api/user", String.class);
+        return ResponseEntity.ok(response);
+    }
+    
+    @GetMapping("/product")
+    public ResponseEntity<String> getProduct() {
+        String response = restTemplate.getForObject(MOCK_API_URL + "/api/product", String.class);
+        return ResponseEntity.ok(response);
+    }
+}
+```
