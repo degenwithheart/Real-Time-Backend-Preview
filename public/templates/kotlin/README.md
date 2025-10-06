@@ -1,142 +1,127 @@
-# Kotlin API Integration
+# Kotlin API Integration Guide
 
-## Live Mock API Endpoints
-- GET https://real-time-backend-preview.vercel.app/api/user
-- GET https://real-time-backend-preview.vercel.app/api/product
+## Quick Start
 
-## Basic HTTP Client
+Get started with our API using Kotlin and the OkHttp library.
 
-```kotlin
-import java.net.http.HttpClient
-import java.net.http.HttpRequest
-import java.net.http.HttpResponse
-import java.net.URI
-import kotlinx.coroutines.*
+### Installation
 
-class ApiClient {
-    companion object {
-        private const val BASE_URL = "https://real-time-backend-preview.vercel.app"
-        private val client = HttpClient.newHttpClient()
-    }
-    
-    suspend fun fetchUser(): String? {
-        return withContext(Dispatchers.IO) {
-            try {
-                val request = HttpRequest.newBuilder()
-                    .uri(URI.create("$BASE_URL/api/user"))
-                    .GET()
-                    .build()
-                
-                val response = client.send(request, HttpResponse.BodyHandlers.ofString())
-                println("User Data: ${response.body()}")
-                response.body()
-            } catch (e: Exception) {
-                println("Error fetching user: ${e.message}")
-                null
-            }
-        }
-    }
-    
-    suspend fun fetchProduct(): String? {
-        return withContext(Dispatchers.IO) {
-            try {
-                val request = HttpRequest.newBuilder()
-                    .uri(URI.create("$BASE_URL/api/product"))
-                    .GET()
-                    .build()
-                
-                val response = client.send(request, HttpResponse.BodyHandlers.ofString())
-                println("Product Data: ${response.body()}")
-                response.body()
-            } catch (e: Exception) {
-                println("Error fetching product: ${e.message}")
-                null
-            }
-        }
-    }
-}
+Add to your `build.gradle`:
+```gradle
+implementation "com.squareup.okhttp3:okhttp:4.10.0"
+implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1"
+```
 
-suspend fun main() {
-    val client = ApiClient()
-    client.fetchUser()
-    client.fetchProduct()
+### Basic Usage
+
+```kt
+// Basic GET request to fetch users
+http_client.get("https://api.your-domain.com/users")
+```
+
+### Authentication
+
+All API requests require authentication. Include your API token in the Authorization header:
+
+```kt
+// Request with authentication headers
+http_client.get("https://api.your-domain.com/users", headers=auth_headers)
+```
+
+### Creating Data
+
+To create new resources, send a POST request with JSON data:
+
+```kt
+// POST request to create new user
+user_data = {"name": "John Doe", "email": "john@example.com"}
+http_client.post("https://api.your-domain.com/users", data=user_data)
+```
+
+## API Endpoints
+
+### Users
+- **GET** `/users` - Fetch all users
+- **GET** `/users/{id}` - Fetch specific user
+- **POST** `/users` - Create new user
+- **PUT** `/users/{id}` - Update user
+- **DELETE** `/users/{id}` - Delete user
+
+### Products
+- **GET** `/products` - Fetch all products
+- **GET** `/products/{id}` - Fetch specific product  
+- **POST** `/products` - Create new product
+- **PUT** `/products/{id}` - Update product
+- **DELETE** `/products/{id}` - Delete product
+
+## Response Format
+
+All API responses are in JSON format:
+
+```json
+{
+  "data": [...],
+  "meta": {
+    "total": 100,
+    "page": 1,
+    "per_page": 20
+  }
 }
 ```
 
-## Spring Boot Integration
+## Error Handling
 
-```kotlin
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
-import org.springframework.web.client.RestTemplate
-import org.springframework.http.ResponseEntity
-
-@RestController
-@RequestMapping("/api")
-class MockDataController {
-    
-    private val restTemplate = RestTemplate()
-    private val mockApiUrl = "https://real-time-backend-preview.vercel.app"
-    
-    @GetMapping("/user")
-    fun getUser(): ResponseEntity<String> {
-        return try {
-            val response = restTemplate.getForObject("$mockApiUrl/api/user", String::class.java)
-            ResponseEntity.ok(response)
-        } catch (e: Exception) {
-            ResponseEntity.internalServerError().body("Error fetching user data")
-        }
-    }
-    
-    @GetMapping("/product")
-    fun getProduct(): ResponseEntity<String> {
-        return try {
-            val response = restTemplate.getForObject("$mockApiUrl/api/product", String::class.java)
-            ResponseEntity.ok(response)
-        } catch (e: Exception) {
-            ResponseEntity.internalServerError().body("Error fetching product data")
-        }
-    }
+```kt
+// Handle HTTP errors and network issues appropriately
+try {
+    response = http_client.get("https://api.your-domain.com/users")
+    handle_response(response)
+} catch (error) {
+    handle_error(error)
 }
 ```
 
-## Ktor Integration
+## Rate Limiting
 
-```kotlin
-import io.ktor.application.*
-import io.ktor.client.*
-import io.ktor.client.request.*
-import io.ktor.client.statement.*
-import io.ktor.response.*
-import io.ktor.routing.*
-import io.ktor.server.engine.*
-import io.ktor.server.netty.*
+- **Rate Limit**: 1000 requests per hour per API key
+- **Headers**: Check `X-RateLimit-Remaining` and `X-RateLimit-Reset`
 
-fun main() {
-    embeddedServer(Netty, port = 8080) {
-        val client = HttpClient()
-        val mockApiUrl = "https://real-time-backend-preview.vercel.app"
-        
-        routing {
-            get("/api/user") {
-                try {
-                    val response: HttpResponse = client.get("$mockApiUrl/api/user")
-                    call.respondText(response.readText())
-                } catch (e: Exception) {
-                    call.respondText("Error fetching user data")
-                }
-            }
-            
-            get("/api/product") {
-                try {
-                    val response: HttpResponse = client.get("$mockApiUrl/api/product")
-                    call.respondText(response.readText())
-                } catch (e: Exception) {
-                    call.respondText("Error fetching product data")
-                }
-            }
-        }
-    }.start(wait = true)
+## Pagination Example
+
+```kt
+// Implement pagination to handle large datasets
+page = 1
+while (has_more_data) {
+    response = http_client.get("https://api.your-domain.com/users?page=" + page)
+    process_page(response.data)
+    page++
 }
 ```
+
+## Best Practices
+
+1. **Always handle errors gracefully**
+2. **Implement exponential backoff for retries**
+3. **Cache responses when appropriate** 
+4. **Use connection pooling for better performance**
+5. **Validate input data before sending requests**
+
+## Support
+
+- 📚 [Full API Documentation](https://docs.your-domain.com)
+- 💬 [Community Support](https://community.your-domain.com)
+- 🐛 [Report Issues](https://github.com/your-org/api-issues)
+- 📧 [Email Support](mailto:support@your-domain.com)
+
+## SDK Information
+
+### Official SDKs
+
+We provide official SDKs for popular languages:
+- [JavaScript/TypeScript SDK](https://npm.com/@your-org/api-sdk)
+- [Python SDK](https://pypi.org/project/your-org-api/)
+- [Go SDK](https://github.com/your-org/go-sdk)
+
+### Community Libraries
+
+Check our [community page](https://community.your-domain.com/sdks) for Kotlin libraries maintained by the community.

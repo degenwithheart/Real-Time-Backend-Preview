@@ -1,112 +1,142 @@
-# Python API Integration
+# Python API Integration Guide
 
-## API Endpoints
-- GET /api/user - Returns random user data
-- GET /api/product - Returns random product data
+## Quick Start
 
-Base URL: https://real-time-backend-preview.vercel.app
+Get started with our API using Python and the requests library.
 
-## Installation
+### Installation
+
 ```bash
 pip install requests
 ```
 
-## Basic Usage
+### Basic Usage
 
-```python
+```py
 import requests
-import json
 
-# Fetch user data
-def fetch_user():
-    response = requests.get('https://real-time-backend-preview.vercel.app/api/user')
-    user_data = response.json()
-    print('User:', json.dumps(user_data, indent=2))
-    return user_data
-
-# Fetch product data
-def fetch_product():
-    response = requests.get('https://real-time-backend-preview.vercel.app/api/product')
-    product_data = response.json()
-    print('Product:', json.dumps(product_data, indent=2))
-    return product_data
-
-if __name__ == '__main__':
-    user = fetch_user()
-    product = fetch_product()
+response = requests.get('https://api.your-domain.com/users')
+users = response.json()
+print(users)
 ```
 
-## Flask Integration
+### Authentication
 
-```python
-from flask import Flask, render_template, jsonify
-import requests
+All API requests require authentication. Include your API token in the Authorization header:
 
-app = Flask(__name__)
-
-@app.route('/user')
-def get_user():
-    response = requests.get('https://real-time-backend-preview.vercel.app/api/user')
-    return jsonify(response.json())
-
-@app.route('/product')
-def get_product():
-    response = requests.get('https://real-time-backend-preview.vercel.app/api/product')
-    return jsonify(response.json())
-
-if __name__ == '__main__':
-    app.run(debug=True)
+```py
+headers = {
+    'Authorization': 'Bearer your-token-here',
+    'Content-Type': 'application/json'
+}
+response = requests.get('https://api.your-domain.com/users', headers=headers)
 ```
 
-## Django Integration
+### Creating Data
 
-```python
-import requests
-from django.http import JsonResponse
-from django.shortcuts import render
+To create new resources, send a POST request with JSON data:
 
-def user_view(request):
-    response = requests.get('https://real-time-backend-preview.vercel.app/api/user')
-    user_data = response.json()
-    return JsonResponse(user_data)
+```py
+user_data = {'name': 'John Doe', 'email': 'john@example.com'}
 
-def product_view(request):
-    response = requests.get('https://real-time-backend-preview.vercel.app/api/product')
-    product_data = response.json()
-    return JsonResponse(product_data)
-```# Python API Connection
-
-This template demonstrates how to connect to the mock API using Python.
+response = requests.post(
+    'https://api.your-domain.com/users',
+    headers=headers,
+    json=user_data
+)
+```
 
 ## API Endpoints
 
-- `GET https://real-time-backend-preview.vercel.app/api/user` - Returns random user data
-- `GET https://real-time-backend-preview.vercel.app/api/product` - Returns random product data
+### Users
+- **GET** `/users` - Fetch all users
+- **GET** `/users/{id}` - Fetch specific user
+- **POST** `/users` - Create new user
+- **PUT** `/users/{id}` - Update user
+- **DELETE** `/users/{id}` - Delete user
 
-Install requests: `pip install requests`
+### Products
+- **GET** `/products` - Fetch all products
+- **GET** `/products/{id}` - Fetch specific product  
+- **POST** `/products` - Create new product
+- **PUT** `/products/{id}` - Update product
+- **DELETE** `/products/{id}` - Delete product
 
-## Usage
+## Response Format
 
-Run the examples:
+All API responses are in JSON format:
 
-```bash
-python user.py
-python product.py
+```json
+{
+  "data": [...],
+  "meta": {
+    "total": 100,
+    "page": 1,
+    "per_page": 20
+  }
+}
 ```
 
-## Building Frontend Apps
+## Error Handling
 
-Use this mock API to prototype your frontend while the real backend is being developed.
-
-Example: Fetch and display user data.
-
-```python
-import requests
-
-response = requests.get('https://real-time-backend-preview.vercel.app/api/user')
-user = response.json()
-print('User:', user)
-# In a web app, pass user to your template or update UI
+```py
+try:
+    response = requests.get('https://api.your-domain.com/users')
+    response.raise_for_status()
+    users = response.json()
+except requests.exceptions.RequestException as e:
+    print(f"Request failed: {e}")
 ```
 
-Replace the mock API URL with your production API when ready.
+## Rate Limiting
+
+- **Rate Limit**: 1000 requests per hour per API key
+- **Headers**: Check `X-RateLimit-Remaining` and `X-RateLimit-Reset`
+
+## Pagination Example
+
+```py
+def fetch_all_users():
+    page = 1
+    all_users = []
+    
+    while True:
+        response = requests.get(f'https://api.your-domain.com/users?page={page}')
+        data = response.json()
+        
+        all_users.extend(data['data'])
+        
+        if not data['data'] or page >= data['meta']['total_pages']:
+            break
+        page += 1
+    
+    return all_users
+```
+
+## Best Practices
+
+1. **Always handle errors gracefully**
+2. **Implement exponential backoff for retries**
+3. **Cache responses when appropriate** 
+4. **Use connection pooling for better performance**
+5. **Validate input data before sending requests**
+
+## Support
+
+- 📚 [Full API Documentation](https://docs.your-domain.com)
+- 💬 [Community Support](https://community.your-domain.com)
+- 🐛 [Report Issues](https://github.com/your-org/api-issues)
+- 📧 [Email Support](mailto:support@your-domain.com)
+
+## SDK Information
+
+### Official SDKs
+
+We provide official SDKs for popular languages:
+- [JavaScript/TypeScript SDK](https://npm.com/@your-org/api-sdk)
+- [Python SDK](https://pypi.org/project/your-org-api/)
+- [Go SDK](https://github.com/your-org/go-sdk)
+
+### Community Libraries
+
+Check our [community page](https://community.your-domain.com/sdks) for Python libraries maintained by the community.

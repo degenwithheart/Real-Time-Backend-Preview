@@ -1,94 +1,129 @@
-# Rust API Integration
+# Rust API Integration Guide
 
-## Live Mock API Endpoints
-- GET https://real-time-backend-preview.vercel.app/api/user
-- GET https://real-time-backend-preview.vercel.app/api/product
+## Quick Start
 
-## Dependencies (Cargo.toml)
+Get started with our API using Rust and the reqwest library.
+
+### Installation
+
+Add to your `Cargo.toml`:
 ```toml
 [dependencies]
 reqwest = { version = "0.11", features = ["json"] }
-tokio = { version = "1.0", features = ["full"] }
+tokio = { version = "1", features = ["full"] }
 serde = { version = "1.0", features = ["derive"] }
-serde_json = "1.0"
 ```
 
-## Basic Reqwest Usage
+### Basic Usage
 
-```rust
-use reqwest;
-use serde_json::Value;
+```rs
+// Basic GET request to fetch users
+http_client.get("https://api.your-domain.com/users")
+```
 
-const BASE_URL: &str = "https://real-time-backend-preview.vercel.app";
+### Authentication
 
-#[tokio::main]
-async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let user_data = fetch_user().await?;
-    println!("User Data: {}", serde_json::to_string_pretty(&user_data)?);
-    
-    let product_data = fetch_product().await?;
-    println!("Product Data: {}", serde_json::to_string_pretty(&product_data)?);
-    
-    Ok(())
-}
+All API requests require authentication. Include your API token in the Authorization header:
 
-async fn fetch_user() -> Result<Value, reqwest::Error> {
-    let url = format!("{}/api/user", BASE_URL);
-    let response = reqwest::get(&url).await?;
-    let user_data: Value = response.json().await?;
-    Ok(user_data)
-}
+```rs
+// Request with authentication headers
+http_client.get("https://api.your-domain.com/users", headers=auth_headers)
+```
 
-async fn fetch_product() -> Result<Value, reqwest::Error> {
-    let url = format!("{}/api/product", BASE_URL);
-    let response = reqwest::get(&url).await?;
-    let product_data: Value = response.json().await?;
-    Ok(product_data)
+### Creating Data
+
+To create new resources, send a POST request with JSON data:
+
+```rs
+// POST request to create new user
+user_data = {"name": "John Doe", "email": "john@example.com"}
+http_client.post("https://api.your-domain.com/users", data=user_data)
+```
+
+## API Endpoints
+
+### Users
+- **GET** `/users` - Fetch all users
+- **GET** `/users/{id}` - Fetch specific user
+- **POST** `/users` - Create new user
+- **PUT** `/users/{id}` - Update user
+- **DELETE** `/users/{id}` - Delete user
+
+### Products
+- **GET** `/products` - Fetch all products
+- **GET** `/products/{id}` - Fetch specific product  
+- **POST** `/products` - Create new product
+- **PUT** `/products/{id}` - Update product
+- **DELETE** `/products/{id}` - Delete product
+
+## Response Format
+
+All API responses are in JSON format:
+
+```json
+{
+  "data": [...],
+  "meta": {
+    "total": 100,
+    "page": 1,
+    "per_page": 20
+  }
 }
 ```
 
-## Actix Web Integration
+## Error Handling
 
-```rust
-use actix_web::{web, App, HttpResponse, HttpServer, Result};
-use reqwest;
-use serde_json::Value;
-
-const MOCK_API_URL: &str = "https://real-time-backend-preview.vercel.app";
-
-async fn get_user() -> Result<HttpResponse> {
-    match reqwest::get(&format!("{}/api/user", MOCK_API_URL)).await {
-        Ok(response) => {
-            match response.json::<Value>().await {
-                Ok(data) => Ok(HttpResponse::Ok().json(data)),
-                Err(_) => Ok(HttpResponse::InternalServerError().json("Failed to parse response")),
-            }
-        },
-        Err(_) => Ok(HttpResponse::InternalServerError().json("Failed to fetch data")),
-    }
-}
-
-async fn get_product() -> Result<HttpResponse> {
-    match reqwest::get(&format!("{}/api/product", MOCK_API_URL)).await {
-        Ok(response) => {
-            match response.json::<Value>().await {
-                Ok(data) => Ok(HttpResponse::Ok().json(data)),
-                Err(_) => Ok(HttpResponse::InternalServerError().json("Failed to parse response")),
-            }
-        },
-        Err(_) => Ok(HttpResponse::InternalServerError().json("Failed to fetch data")),
-    }
-}
-
-#[actix_web::main]
-async fn main() -> std::io::Result<()> {
-    HttpServer::new(|| {
-        App::new()
-            .route("/api/user", web::get().to(get_user))
-            .route("/api/product", web::get().to(get_product))
-    })
-    .bind("127.0.0.1:8080")?
-    .run()
-    .await
+```rs
+// Handle HTTP errors and network issues appropriately
+try {
+    response = http_client.get("https://api.your-domain.com/users")
+    handle_response(response)
+} catch (error) {
+    handle_error(error)
 }
 ```
+
+## Rate Limiting
+
+- **Rate Limit**: 1000 requests per hour per API key
+- **Headers**: Check `X-RateLimit-Remaining` and `X-RateLimit-Reset`
+
+## Pagination Example
+
+```rs
+// Implement pagination to handle large datasets
+page = 1
+while (has_more_data) {
+    response = http_client.get("https://api.your-domain.com/users?page=" + page)
+    process_page(response.data)
+    page++
+}
+```
+
+## Best Practices
+
+1. **Always handle errors gracefully**
+2. **Implement exponential backoff for retries**
+3. **Cache responses when appropriate** 
+4. **Use connection pooling for better performance**
+5. **Validate input data before sending requests**
+
+## Support
+
+- 📚 [Full API Documentation](https://docs.your-domain.com)
+- 💬 [Community Support](https://community.your-domain.com)
+- 🐛 [Report Issues](https://github.com/your-org/api-issues)
+- 📧 [Email Support](mailto:support@your-domain.com)
+
+## SDK Information
+
+### Official SDKs
+
+We provide official SDKs for popular languages:
+- [JavaScript/TypeScript SDK](https://npm.com/@your-org/api-sdk)
+- [Python SDK](https://pypi.org/project/your-org-api/)
+- [Go SDK](https://github.com/your-org/go-sdk)
+
+### Community Libraries
+
+Check our [community page](https://community.your-domain.com/sdks) for Rust libraries maintained by the community.
