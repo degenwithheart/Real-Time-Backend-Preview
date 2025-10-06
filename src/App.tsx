@@ -10,12 +10,19 @@ function App() {
     <div className="app">
       <h1>🌀 Real-Time Backend Preview</h1>
       <div className="tabs">
-        <button className={activeTab === 'info' ? 'active' : ''} onClick={() => setActiveTab('info')}>API Info</button>
+        <button className={activeTab === 'demo' ? 'active' : ''} onClick={() => setActiveTab('demo')}>API Information</button>
         <button className={activeTab === 'code' ? 'active' : ''} onClick={() => setActiveTab('code')}>Code Examples</button>
         <button className={activeTab === 'integrations' ? 'active' : ''} onClick={() => setActiveTab('integrations')}>Integrations</button>
       </div>
-      {activeTab === 'info' && (
+      {activeTab === 'demo' && (
         <div className="demo-section">
+          <div className="demo-header">
+            <h2>🚀 Live API Demo</h2>
+            <p className="demo-description">
+              Test our mock API endpoints with real-time generated data powered by Faker.js
+            </p>
+          </div>
+
           <div className="welcome-tiles">
             <div className="demo-header">
               <h2>🌟 Welcome to Real-Time Backend Preview</h2>
