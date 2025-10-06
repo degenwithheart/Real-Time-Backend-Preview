@@ -110,30 +110,27 @@ const response = await fetch('https://real-time-backend-preview.vercel.app/users
 - **GET** `/analytics/realtime` - Get real-time analytics
 - **GET** `/analytics/exports` - Export analytics data
 
-### Communication
-- **GET** `/communication/messages` - Get messages
-- **GET** `/communication/notifications` - Get notifications
-- **GET** `/communication/emails` - Get emails
-- **GET** `/communication/contacts` - Get contacts
-- **GET** `/communication/calls` - Get call logs
-- **GET** `/communication/channels` - Get communication channels
-- **GET** `/communication/templates` - Get message templates
-- **GET** `/communication/campaigns` - Get communication campaigns
-- **GET** `/communication/conversations` - Get conversations
-- **GET** `/communication/webhooks` - Get webhook configurations
-- **GET** `/communication/analytics` - Get communication analytics
-
-### Content
-- **GET** `/content/posts` - Get posts
-- **GET** `/content/comments` - Get comments
-- **GET** `/content/media` - Get media files
-- **GET** `/content/categories` - Get content categories
-- **GET** `/content/tags` - Get content tags
-- **GET** `/content/pages` - Get pages
-- **GET** `/content/authors` - Get authors
-- **GET** `/content/newsletters` - Get newsletters
-- **GET** `/content/analytics` - Get content analytics
-- **GET** `/content/seo` - Get SEO data
+### Communication & Content
+- **GET** `/communication-content/messages` - Get messages
+- **GET** `/communication-content/notifications` - Get notifications
+- **GET** `/communication-content/emails` - Get emails
+- **GET** `/communication-content/contacts` - Get contacts
+- **GET** `/communication-content/calls` - Get call logs
+- **GET** `/communication-content/channels` - Get communication channels
+- **GET** `/communication-content/templates` - Get message templates
+- **GET** `/communication-content/campaigns` - Get communication campaigns
+- **GET** `/communication-content/conversations` - Get conversations
+- **GET** `/communication-content/webhooks` - Get webhook configurations
+- **GET** `/communication-content/analytics` - Get communication analytics
+- **GET** `/communication-content/posts` - Get posts
+- **GET** `/communication-content/comments` - Get comments
+- **GET** `/communication-content/media` - Get media files
+- **GET** `/communication-content/categories` - Get content categories
+- **GET** `/communication-content/tags` - Get content tags
+- **GET** `/communication-content/pages` - Get pages
+- **GET** `/communication-content/authors` - Get authors
+- **GET** `/communication-content/newsletters` - Get newsletters
+- **GET** `/communication-content/seo` - Get SEO data
 
 ### Financial
 - **GET** `/financial/accounts` - Get financial accounts
@@ -147,65 +144,48 @@ const response = await fetch('https://real-time-backend-preview.vercel.app/users
 - **GET** `/financial/budgets` - Get budget information
 - **GET** `/financial/taxes` - Get tax information
 
-### HR (Human Resources)
-- **GET** `/hr/employees` - Get employees
-- **GET** `/hr/departments` - Get departments
-- **GET** `/hr/schedules` - Get schedules
-- **GET** `/hr/tasks` - Get tasks
-- **GET** `/hr/payroll` - Get payroll information
-- **GET** `/hr/benefits` - Get benefits
-- **GET** `/hr/performance` - Get performance reviews
-- **GET** `/hr/recruitment` - Get recruitment data
-- **GET** `/hr/attendance` - Get attendance records
-- **GET** `/hr/training` - Get training programs
+### HR & Location
+- **GET** `/hr-location/employees` - Get employees
+- **GET** `/hr-location/departments` - Get departments
+- **GET** `/hr-location/schedules` - Get schedules
+- **GET** `/hr-location/tasks` - Get tasks
+- **GET** `/hr-location/payroll` - Get payroll information
+- **GET** `/hr-location/benefits` - Get benefits
+- **GET** `/hr-location/performance` - Get performance reviews
+- **GET** `/hr-location/recruitment` - Get recruitment data
+- **GET** `/hr-location/attendance` - Get attendance records
+- **GET** `/hr-location/training` - Get training programs
+- **GET** `/hr-location/locations` - Get location data
+- **GET** `/hr-location/weather` - Get weather information
+- **GET** `/hr-location/maps` - Get map data
+- **GET** `/hr-location/geocoding` - Get geocoding data
+- **GET** `/hr-location/routing` - Get routing information
+- **GET** `/hr-location/places` - Get places data
+- **GET** `/hr-location/timezone` - Get timezone information
+- **GET** `/hr-location/elevation` - Get elevation data
+- **GET** `/hr-location/geofencing` - Get geofencing data
+- **GET** `/hr-location/traffic` - Get traffic information
 
-### Location
-- **GET** `/location/locations` - Get location data
-- **GET** `/location/weather` - Get weather information
-- **GET** `/location/maps` - Get map data
-- **GET** `/location/geocoding` - Get geocoding data
-- **GET** `/location/routing` - Get routing information
-- **GET** `/location/places` - Get places data
-- **GET** `/location/timezone` - Get timezone information
-- **GET** `/location/elevation` - Get elevation data
-- **GET** `/location/geofencing` - Get geofencing data
-- **GET** `/location/traffic` - Get traffic information
-
-### Social Media
-- **GET** `/social/posts` - Get social posts
-- **GET** `/social/followers` - Get followers
-- **GET** `/social/hashtags` - Get hashtag data
-- **GET** `/social/stories` - Get stories
-- **GET** `/social/messages` - Get direct messages
-- **GET** `/social/notifications` - Get social notifications
-- **GET** `/social/groups` - Get social groups
-- **GET** `/social/events` - Get social events
-- **GET** `/social/reels` - Get video reels
-- **GET** `/social/live` - Get live streams
-
-### IoT (Internet of Things)
-- **GET** `/iot/devices` - Get IoT devices
-- **GET** `/iot/sensors` - Get sensor data
-- **GET** `/iot/telemetry` - Get telemetry data
-- **GET** `/iot/alerts` - Get IoT alerts
-- **GET** `/iot/automations` - Get automation rules
-- **GET** `/iot/temperature` - Get temperature sensor data
-- **GET** `/iot/humidity` - Get humidity sensor data
-- **GET** `/iot/motion` - Get motion sensor data
-- **GET** `/iot/light` - Get light sensor data
-- **GET** `/iot/sound` - Get sound sensor data
-
-### Gaming
-- **GET** `/gaming/players` - Get player data
-- **GET** `/gaming/matches` - Get match data
-- **GET** `/gaming/leaderboards` - Get leaderboards
-- **GET** `/gaming/achievements` - Get achievements
-- **GET** `/gaming/tournaments` - Get tournaments
-- **GET** `/gaming/guilds` - Get guilds
-- **GET** `/gaming/items` - Get game items
-- **GET** `/gaming/quests` - Get quests
-- **GET** `/gaming/stats` - Get player statistics
-- **GET** `/gaming/events` - Get game events
+### Social & Gaming
+- **GET** `/social-gaming/posts` - Get social posts
+- **GET** `/social-gaming/followers` - Get followers
+- **GET** `/social-gaming/hashtags` - Get hashtag data
+- **GET** `/social-gaming/stories` - Get stories
+- **GET** `/social-gaming/messages` - Get direct messages
+- **GET** `/social-gaming/notifications` - Get social notifications
+- **GET** `/social-gaming/groups` - Get social groups
+- **GET** `/social-gaming/events` - Get social events
+- **GET** `/social-gaming/reels` - Get video reels
+- **GET** `/social-gaming/live` - Get live streams
+- **GET** `/social-gaming/players` - Get player data
+- **GET** `/social-gaming/matches` - Get match data
+- **GET** `/social-gaming/leaderboards` - Get leaderboards
+- **GET** `/social-gaming/achievements` - Get achievements
+- **GET** `/social-gaming/tournaments` - Get tournaments
+- **GET** `/social-gaming/guilds` - Get guilds
+- **GET** `/social-gaming/items` - Get game items
+- **GET** `/social-gaming/quests` - Get quests
+- **GET** `/social-gaming/stats` - Get player statistics
 
 ### Healthcare
 - **GET** `/healthcare/patients` - Get patient data

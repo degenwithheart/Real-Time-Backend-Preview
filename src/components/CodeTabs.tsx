@@ -81,11 +81,15 @@ const apiEndpoints = {
     { name: 'Transactions', endpoint: '/api/commerce?endpoint=transactions', method: 'GET' },
     { name: 'Customers', endpoint: '/api/commerce?endpoint=customers', method: 'GET' }
   ],
-  'Content': [
-    { name: 'Posts', endpoint: '/api/content?endpoint=posts', method: 'GET' },
-    { name: 'Comments', endpoint: '/api/content?endpoint=comments', method: 'GET' },
-    { name: 'Media', endpoint: '/api/content?endpoint=media', method: 'GET' },
-    { name: 'Categories', endpoint: '/api/content?endpoint=categories', method: 'GET' }
+  'Communication & Content': [
+    { name: 'Messages', endpoint: '/api/communication-content?endpoint=messages', method: 'GET' },
+    { name: 'Notifications', endpoint: '/api/communication-content?endpoint=notifications', method: 'GET' },
+    { name: 'Emails', endpoint: '/api/communication-content?endpoint=emails', method: 'GET' },
+    { name: 'Contacts', endpoint: '/api/communication-content?endpoint=contacts', method: 'GET' },
+    { name: 'Posts', endpoint: '/api/communication-content?endpoint=posts', method: 'GET' },
+    { name: 'Comments', endpoint: '/api/communication-content?endpoint=comments', method: 'GET' },
+    { name: 'Media', endpoint: '/api/communication-content?endpoint=media', method: 'GET' },
+    { name: 'Categories', endpoint: '/api/communication-content?endpoint=categories', method: 'GET' }
   ],
   'Analytics': [
     { name: 'Analytics', endpoint: '/api/analytics?endpoint=analytics', method: 'GET' },
@@ -93,46 +97,37 @@ const apiEndpoints = {
     { name: 'Reports', endpoint: '/api/analytics?endpoint=reports', method: 'GET' },
     { name: 'Logs', endpoint: '/api/analytics?endpoint=logs', method: 'GET' }
   ],
-  'Communication': [
-    { name: 'Messages', endpoint: '/api/communication?endpoint=messages', method: 'GET' },
-    { name: 'Notifications', endpoint: '/api/communication?endpoint=notifications', method: 'GET' },
-    { name: 'Emails', endpoint: '/api/communication?endpoint=emails', method: 'GET' },
-    { name: 'Contacts', endpoint: '/api/communication?endpoint=contacts', method: 'GET' }
-  ],
-  'Location': [
-    { name: 'Locations', endpoint: '/api/location?endpoint=locations', method: 'GET' },
-    { name: 'Weather', endpoint: '/api/location?endpoint=weather', method: 'GET' },
-    { name: 'Maps', endpoint: '/api/location?endpoint=maps', method: 'GET' }
-  ],
   'Financial': [
     { name: 'Accounts', endpoint: '/api/financial?endpoint=accounts', method: 'GET' },
     { name: 'Transactions', endpoint: '/api/financial?endpoint=transactions', method: 'GET' },
     { name: 'Cryptocurrencies', endpoint: '/api/financial?endpoint=cryptocurrencies', method: 'GET' },
     { name: 'Stocks', endpoint: '/api/financial?endpoint=stocks', method: 'GET' }
   ],
-  'HR': [
-    { name: 'Employees', endpoint: '/api/hr?endpoint=employees', method: 'GET' },
-    { name: 'Departments', endpoint: '/api/hr?endpoint=departments', method: 'GET' },
-    { name: 'Schedules', endpoint: '/api/hr?endpoint=schedules', method: 'GET' },
-    { name: 'Tasks', endpoint: '/api/hr?endpoint=tasks', method: 'GET' }
+  'HR & Location': [
+    { name: 'Employees', endpoint: '/api/hr-location?endpoint=employees', method: 'GET' },
+    { name: 'Departments', endpoint: '/api/hr-location?endpoint=departments', method: 'GET' },
+    { name: 'Schedules', endpoint: '/api/hr-location?endpoint=schedules', method: 'GET' },
+    { name: 'Tasks', endpoint: '/api/hr-location?endpoint=tasks', method: 'GET' },
+    { name: 'Locations', endpoint: '/api/hr-location?endpoint=locations', method: 'GET' },
+    { name: 'Weather', endpoint: '/api/hr-location?endpoint=weather', method: 'GET' },
+    { name: 'Maps', endpoint: '/api/hr-location?endpoint=maps', method: 'GET' },
+    { name: 'Geocoding', endpoint: '/api/hr-location?endpoint=geocoding', method: 'GET' }
   ],
-  'Social': [
-    { name: 'Posts', endpoint: '/api/social?endpoint=posts', method: 'GET' },
-    { name: 'Followers', endpoint: '/api/social?endpoint=followers', method: 'GET' },
-    { name: 'Hashtags', endpoint: '/api/social?endpoint=hashtags', method: 'GET' },
-    { name: 'Stories', endpoint: '/api/social?endpoint=stories', method: 'GET' }
+  'Social & Gaming': [
+    { name: 'Posts', endpoint: '/api/social-gaming?endpoint=posts', method: 'GET' },
+    { name: 'Followers', endpoint: '/api/social-gaming?endpoint=followers', method: 'GET' },
+    { name: 'Hashtags', endpoint: '/api/social-gaming?endpoint=hashtags', method: 'GET' },
+    { name: 'Stories', endpoint: '/api/social-gaming?endpoint=stories', method: 'GET' },
+    { name: 'Players', endpoint: '/api/social-gaming?endpoint=players', method: 'GET' },
+    { name: 'Matches', endpoint: '/api/social-gaming?endpoint=matches', method: 'GET' },
+    { name: 'Leaderboards', endpoint: '/api/social-gaming?endpoint=leaderboards', method: 'GET' },
+    { name: 'Achievements', endpoint: '/api/social-gaming?endpoint=achievements', method: 'GET' }
   ],
   'IoT': [
     { name: 'Devices', endpoint: '/api/iot?endpoint=devices', method: 'GET' },
     { name: 'Sensors', endpoint: '/api/iot?endpoint=sensors', method: 'GET' },
     { name: 'Telemetry', endpoint: '/api/iot?endpoint=telemetry', method: 'GET' },
     { name: 'Alerts', endpoint: '/api/iot?endpoint=alerts', method: 'GET' }
-  ],
-  'Gaming': [
-    { name: 'Players', endpoint: '/api/gaming?endpoint=players', method: 'GET' },
-    { name: 'Matches', endpoint: '/api/gaming?endpoint=matches', method: 'GET' },
-    { name: 'Leaderboards', endpoint: '/api/gaming?endpoint=leaderboards', method: 'GET' },
-    { name: 'Achievements', endpoint: '/api/gaming?endpoint=achievements', method: 'GET' }
   ],
   'Healthcare': [
     { name: 'Patients', endpoint: '/api/healthcare?endpoint=patients', method: 'GET' },
