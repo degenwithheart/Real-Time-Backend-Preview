@@ -16,18 +16,13 @@ function App() {
       </div>
       {activeTab === 'demo' && (
         <div className="demo-section">
-          <div className="demo-header">
-            <h2>🚀 Live API Demo</h2>
-            <p className="demo-description">
-              Test our mock API endpoints with real-time generated data powered by Faker.js
-            </p>
-          </div>
 
           <div className="welcome-tiles">
             <div className="demo-header">
               <h2>🌟 Welcome to Real-Time Backend Preview</h2>
               <p className="demo-description">
-                Explore our comprehensive API platform with 12 different endpoint categories:
+                Explore our comprehensive API platform with 12 different API categories to kickstart your development journey<br />
+                (100+ endpoints available):
                 <br /><br />
                 🔐 Authentication & Authorization<br />
                 🛒 E-Commerce & Shopping<br />
